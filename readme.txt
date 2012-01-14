@@ -1,23 +1,24 @@
-=== VideoJS for Wordpress ==
-Contributors: Steve Heffernan
+=== VideoJS - HTML5 Video Player for Wordpress ===
+Contributors: Steve Heffernan, Dustin Lammiman
+Donate link: http://videojs.com/
 Tags: html5, video, player, javascript
 Requires at least: 2.6
-Tested up to: 3.0.1
-Stable tag: 1.0
+Tested up to: 3.3.1
+Stable tag: 3.0
 
-Allows you to embed video in your post or page using HTML5, with Flash fallback support for non-HTML5 browsers.
+Video.js is the most widely used HTML5 Video Player available. It allows you to embed video in your post or page using HTML5.
 
 == Description ==
 
-A video plugin for WordPress built on the VideoJS HTML5 video player library. Allows you to embed video in your post or page using HTML5 with Flash fallback support for non-HTML5 browsers.
+A video plugin for WordPress built on the Video.js HTML5 video player library. Allows you to embed video in your post or page using HTML5 with Flash fallback support for non-HTML5 browsers.
 
-View [VideoJS.com](http://videojs.com/) for more information.
+View <a href="http://videojs.com/">videojs.com</a> for additional information.
 
 == Installation ==
 
 This section describes how to install the plugin and get it working.
 
-1. Upload the `video-js-wp` folder to the `/wp-content/plugins/` directory
+1. Upload the `videojs-html5-video-player-for-wordpress` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Use the [video] shortcode in your post or page using the following options.
 
@@ -37,7 +38,7 @@ The location of the Theora/Ogg source for the video.
 ### webm
 The location of the VP8/WebM source for the video.
 
-    [video ogg="http://video-js.zencoder.com/oceans-clip.ogg"]
+    [video webm="http://video-js.zencoder.com/oceans-clip.webm"]
 
 ### poster
 The location of the poster frame for the video.
@@ -56,8 +57,9 @@ The height of the video.
 
 ### preload
 Start loading the video as soon as possible, before the user clicks play.
+Use 'auto' or 'none'. Auto will preload when the browser or devices allows it.
 
-    [video preload="true"]
+    [video preload="auto"]
 
 ### autoplay
 Start playing the video as soon as it's ready.
@@ -71,5 +73,30 @@ Start playing the video as soon as it's ready.
 
 == Changelog ==
 
+= 3.0 =
+
+* Completely re-worked for Video.js 3.0, which uses a CDN to host the script and the same HTML/CSS skin and JavaScript API for HTML5 and Flash Video.
+* See videojs.com for specific changes to the script.
+* Removed files used by old versions of Video.js.
+
+= 2.0.2 = 
+
+* Upgraded to version 2.0.2 of VideoJS. See videojs.com for specific version updates.
+
+= 1.1.3 = 
+
+* Added poster to Flash fallback
+
+= 1.1.2 = 
+
+* Updated to VideoJS 1.1.2
+* Fixed the default plugin folder name.
+* Fixed an issue with autoplay not working correctly.
+
+= 1.0.1 =
+
+* Updated to latest version of VideoJS
+
 = 1.0 =
+
 * First release.
