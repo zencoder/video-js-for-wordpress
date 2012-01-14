@@ -12,7 +12,7 @@ Video.js is the most widely used HTML5 Video Player available. It allows you to 
 
 A video plugin for WordPress built on the Video.js HTML5 video player library. Allows you to embed video in your post or page using HTML5 with Flash fallback support for non-HTML5 browsers.
 
-View <a href="http://videojs.com/">videojs.com</a> for additional information.
+View [videojs.com](http://videojs.com) for additional information.
 
 == Installation ==
 
