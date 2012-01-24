@@ -34,7 +34,7 @@ function video_shortcode($atts){
   ), $atts));
 
   // ID is required for multiple videos to work
-  if ($id == '') {
+  if ($id == '')
     $id = 'example_video_id_'.rand();
 
   // MP4 Source Supplied
