@@ -2,9 +2,9 @@
 Contributors: Steve Heffernan, Dustin Lammiman
 Donate link: http://videojs.com/
 Tags: html5, video, player, javascript
-Requires at least: 2.6
+Requires at least: 2.7
 Tested up to: 3.3.1
-Stable tag: 3.0
+Stable tag: 3.0.1
 
 Video.js is the most widely used HTML5 Video Player available. It allows you to embed video in your post or page using HTML5.
 
@@ -62,16 +62,38 @@ Use 'auto' or 'none'. Auto will preload when the browser or devices allows it.
     [video preload="auto"]
 
 ### autoplay
-Start playing the video as soon as it's ready.
+Start playing the video as soon as it's ready. Use 'true' or 'false'.
 
     [video autoplay="true"]
+    
+### id
+Add a custom ID to your video player.
+
+    [video id="movie-id"]
+    
+### class
+Add a custom class to your player. Use full for floating the video player using 'alignleft' or 'alignright'.
+
+    [video class="alignright"]
 
 ### All Attributes Example
 
-    [video mp4="http://video-js.zencoder.com/oceans-clip.mp4" ogg="http://video-js.zencoder.com/oceans-clip.ogg" webm="http://video-js.zencoder.com/oceans-clip.webm" poster="http://video-js.zencoder.com/oceans-clip.png" preload="true" autoplay="true" width="640" height="264"]
+    [video mp4="http://video-js.zencoder.com/oceans-clip.mp4" ogg="http://video-js.zencoder.com/oceans-clip.ogg" webm="http://video-js.zencoder.com/oceans-clip.webm" poster="http://video-js.zencoder.com/oceans-clip.png" preload="auto" autoplay="true" width="640" height="264" id="movie-id" class="alignleft"]
+    
+
+Video.js Settings Screen
+------------------------
+The values set here will be the default values for all videos, unless you specify differently in the shortcode. Uncheck "Use CDN hosted version?" if you want to use a self-hosted copy of Video.js instead of the CDN hosted version.
 
 
 == Changelog ==
+
+= 3.0.1 =
+
+* Added an options page to set default values for you video players.
+* Added an option to use a self-hosted version of the script instead of the CDN hosted version.
+* Added a new class="" option to the shortcode.
+* Minor bug fixes.
 
 = 3.0 =
 
