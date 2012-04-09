@@ -4,7 +4,7 @@ Donate link: http://videojs.com/
 Tags: html5, video, player, javascript
 Requires at least: 2.7
 Tested up to: 3.3.1
-Stable tag: 3.0.1
+Stable tag: 3.2.0
 
 Video.js is the most widely used HTML5 Video Player available. It allows you to embed video in your post or page using HTML5.
 
@@ -87,6 +87,11 @@ The values set here will be the default values for all videos, unless you specif
 
 
 == Changelog ==
+
+= 3.2.0 =
+
+* Fixed a bug with the self-hosted option.
+* Updated self-hosted files to Video.js 3.2.0.
 
 = 3.0.1 =
 
