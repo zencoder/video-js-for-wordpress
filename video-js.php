@@ -84,14 +84,10 @@ function video_shortcode($atts){
 		$poster_attribute = '';
 	
 	// Preload the video?
-	if ($preload) {
-		if ($preload == "on")
-			$preload = "auto";
-			
-		$preload_attribute = 'preload="'.$preload.'"';
-	} else {
-		$preload_attribute = '';
-	}
+	if ($preload == "auto" || $preload == "true" || $autoplay == "on")
+		$preload_attribute = " preload";
+	else 
+		$preload_attribute = "";
 
 	// Autoplay the video?
 	if ($autoplay == "true" || $autoplay == "on")
