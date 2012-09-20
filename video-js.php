@@ -88,7 +88,7 @@ function video_shortcode($atts, $content=null){
 		$poster_attribute = '';
 	
 	// Preload the video?
-	if ($preload == "auto" || $preload == "true" || $autoplay == "on")
+	if ($preload == "auto" || $preload == "true" || $preload == "on")
 		$preload_attribute = " preload";
 	else 
 		$preload_attribute = "";
@@ -113,11 +113,10 @@ function video_shortcode($atts, $content=null){
 	$videojs = <<<_end_
 
 	<!-- Begin Video.js -->
-	<video id="{$id}" class="video-js vjs-default-skin{$class}" width="{$width}" height="{$height}"{$poster_attribute} controls {$preload_attribute}{$autoplay_attribute} data-setup="{}">
+	<video id="{$id}" class="video-js vjs-default-skin{$class}" width="{$width}" height="{$height}"{$poster_attribute} controls{$preload_attribute}{$autoplay_attribute} data-setup="{}">
 		{$mp4_source}
 		{$webm_source}
-		{$ogg_source}
-		{$track}
+		{$ogg_source}{$track}
 	</video>
 	<!-- End Video.js -->
 
@@ -156,9 +155,9 @@ function track_shortcode($atts, $content=null){
 	else
 		$default = "";
 	
-	$track = <<<_end_
-	<track{kind}{src}{srclang}{label}{default}
-_end_;
+	$track = "
+		<track" . $kind . $src . $srclang . $label . $default . ">
+	";
 	
 	return $track;
 }

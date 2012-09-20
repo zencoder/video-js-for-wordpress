@@ -76,17 +76,29 @@ Add a custom class to your player. Use full for floating the video player using 
 
     [video class="alignright"]
 
+### Tracks
+Text Tracks are a function of HTML5 video for providing time triggered text to the viewer. To use tracks use the [track] shortcode inside of the [video] shortcode. You can set values for the kind, src, srclang, label, and default attributes. More information is available in the [Video.js Documentation](http://videojs.com/docs/tracks/).
+
+    [video][track kind="captions" src="http://example.com/path/to/captions.vtt" srclang="en" label="English" default="true"][/video]
+
 ### All Attributes Example
 
-    [video mp4="http://video-js.zencoder.com/oceans-clip.mp4" ogg="http://video-js.zencoder.com/oceans-clip.ogg" webm="http://video-js.zencoder.com/oceans-clip.webm" poster="http://video-js.zencoder.com/oceans-clip.png" preload="auto" autoplay="true" width="640" height="264" id="movie-id" class="alignleft"]
+    [video mp4="http://video-js.zencoder.com/oceans-clip.mp4" ogg="http://video-js.zencoder.com/oceans-clip.ogg" webm="http://video-js.zencoder.com/oceans-clip.webm" poster="http://video-js.zencoder.com/oceans-clip.png" preload="auto" autoplay="true" width="640" height="264" id="movie-id" class="alignleft"][track kind="captions" src="http://example.com/path/to/captions.vtt" srclang="en" label="English" default="true"][/video]
     
 
 Video.js Settings Screen
 ------------------------
-The values set here will be the default values for all videos, unless you specify differently in the shortcode. Uncheck "Use CDN hosted version?" if you want to use a self-hosted copy of Video.js instead of the CDN hosted version.
+The values set here will be the default values for all videos, unless you specify differently in the shortcode. Uncheck "Use CDN hosted version?" if you want to use a self-hosted copy of Video.js instead of the CDN hosted version. *Using the CDN hosted version is preferable in most situations.*
 
 
 == Changelog ==
+
+= 3.2.2 =
+
+* Added support for tracks.
+* Fixed a bug with the autoplay attribute.
+* Fixed mixed-content warnings on SSL pages.
+* Added a license to the plugin folder (LGPLv3).
 
 = 3.2.0 =
 
