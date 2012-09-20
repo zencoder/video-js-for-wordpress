@@ -11,10 +11,13 @@ Author: <a href="http://steveheffernan.com">Steve Heffernan</a>, <a href="http:/
 Version: 3.2.2
 */
 
+
 $plugin_dir = plugin_dir_path( __FILE__ );
+
 
 /* The options page */
 include_once($plugin_dir . 'admin.php');
+
 
 /* Include the script and css file in the page <head> */
 function add_videojs_header(){
@@ -37,8 +40,9 @@ function add_videojs_header(){
 }
 add_action('wp_head','add_videojs_header');
 
+
 /* The [video] shortcode */
-function video_shortcode($atts){
+function video_shortcode($atts, $content=null){
 	
 	$options = get_option('videojs_options'); //load the defaults
 	
@@ -98,6 +102,12 @@ function video_shortcode($atts){
 	// Is there a custom class?
 	if ($class)
 		$class = ' ' . $class;
+	
+	// Tracks
+	if(!is_null( $content ))
+		$track = do_shortcode($content);
+	else
+		$track = "";
 
 
 	$videojs = <<<_end_
@@ -107,6 +117,7 @@ function video_shortcode($atts){
 		{$mp4_source}
 		{$webm_source}
 		{$ogg_source}
+		{$track}
 	</video>
 	<!-- End Video.js -->
 
@@ -116,5 +127,41 @@ _end_;
 
 }
 add_shortcode('video', 'video_shortcode');
+
+
+/* The [track] shortcode */
+function track_shortcode($atts, $content=null){
+	extract(shortcode_atts(array(
+		'kind' => '',
+		'src' => '',
+		'srclang' => '',
+		'label' => '',
+		'default' => ''
+	), $atts));
+	
+	if($kind)
+		$kind = " kind='" . $kind . "'";
+	
+	if($src)
+		$src = " src='" . $src . "'";
+	
+	if($srclang)
+		$srclang = " srclang='" . $srclang . "'";
+	
+	if($label)
+		$label = " label='" . $label . "'";
+	
+	if($default == "true" || $default == "default")
+		$default = " default";
+	else
+		$default = "";
+	
+	$track = <<<_end_
+	<track{kind}{src}{srclang}{label}{default}
+_end_;
+	
+	return $track;
+}
+add_shortcode('track', 'track_shortcode');
 
 ?>
