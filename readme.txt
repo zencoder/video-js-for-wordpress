@@ -57,7 +57,7 @@ The height of the video.
 
 ### preload
 Start loading the video as soon as possible, before the user clicks play.
-Use 'auto' or 'none'. Auto will preload when the browser or devices allows it.
+Use 'auto', 'metadata', or 'none'. Auto will preload when the browser or devices allows it. Metadata will load only the meta data of the video.
 
     [video preload="auto"]
 

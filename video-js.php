@@ -90,6 +90,8 @@ function video_shortcode($atts, $content=null){
 	// Preload the video?
 	if ($preload == "auto" || $preload == "true" || $preload == "on")
 		$preload_attribute = " preload";
+	elseif ($preload == "metadata")
+		$preload_attribute = ' preload="metadata"';
 	else 
 		$preload_attribute = "";
 
