@@ -102,7 +102,7 @@ function video_shortcode($atts, $content=null){
 	else
 		$autoplay_attribute = "";
 	
-	// Autoplay the video?
+	// Loop the video?
 	if ($loop == "true")
 		$loop_attribute = " loop";
 	else

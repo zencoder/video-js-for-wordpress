@@ -84,7 +84,7 @@ Add a custom class to your player. Use full for floating the video player using 
 ### Tracks
 Text Tracks are a function of HTML5 video for providing time triggered text to the viewer. To use tracks use the [track] shortcode inside of the [video] shortcode. You can set values for the kind, src, srclang, label, and default attributes. More information is available in the [Video.js Documentation](http://videojs.com/docs/tracks/).
 
-    [video][track kind="captions" src="http://example.com/path/to/captions.vtt" srclang="en" label="English" default="true"][/video]
+    [video][track kind="captions" src="http://video-js.zencoder.com/oceans-captions.vtt" srclang="en" label="English" default="true"][/video]
 
 ### All Attributes Example
 
