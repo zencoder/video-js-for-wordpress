@@ -65,6 +65,11 @@ Use 'auto', 'metadata', or 'none'. Auto will preload when the browser or devices
 Start playing the video as soon as it's ready. Use 'true' or 'false'.
 
     [video autoplay="true"]
+
+### loop
+Causes the video to start over as soon as it ends. Use 'true' or 'false'.
+
+    [video loop="true"]
     
 ### id
 Add a custom ID to your video player.
@@ -96,6 +101,7 @@ The values set here will be the default values for all videos, unless you specif
 = 3.2.2 =
 
 * Added support for tracks.
+* Adde loop support.
 * Fixed a bug with the autoplay attribute.
 * Fixed mixed-content warnings on SSL pages.
 * Added a license to the plugin folder (LGPLv3).

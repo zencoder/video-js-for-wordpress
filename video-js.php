@@ -55,6 +55,7 @@ function video_shortcode($atts, $content=null){
 		'height' => $options['videojs_height'],
 		'preload' => $options['videojs_preload'],
 		'autoplay' => $options['videojs_autoplay'],
+		'loop' => '',
 		'id' => '',
 		'class' => ''
 	), $atts));
@@ -101,6 +102,12 @@ function video_shortcode($atts, $content=null){
 	else
 		$autoplay_attribute = "";
 	
+	// Autoplay the video?
+	if ($loop == "true")
+		$loop_attribute = " loop";
+	else
+		$loop_attribute = "";
+	
 	// Is there a custom class?
 	if ($class)
 		$class = ' ' . $class;
@@ -115,7 +122,7 @@ function video_shortcode($atts, $content=null){
 	$videojs = <<<_end_
 
 	<!-- Begin Video.js -->
-	<video id="{$id}" class="video-js vjs-default-skin{$class}" width="{$width}" height="{$height}"{$poster_attribute} controls{$preload_attribute}{$autoplay_attribute} data-setup="{}">
+	<video id="{$id}" class="video-js vjs-default-skin{$class}" width="{$width}" height="{$height}"{$poster_attribute} controls{$preload_attribute}{$autoplay_attribute}{$loop_attribute} data-setup="{}">
 		{$mp4_source}
 		{$webm_source}
 		{$ogg_source}{$track}
