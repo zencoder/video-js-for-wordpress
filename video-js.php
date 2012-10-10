@@ -56,6 +56,7 @@ function video_shortcode($atts, $content=null){
 		'preload' => $options['videojs_preload'],
 		'autoplay' => $options['videojs_autoplay'],
 		'loop' => '',
+		'controls' => '',
 		'id' => '',
 		'class' => ''
 	), $atts));
@@ -108,6 +109,12 @@ function video_shortcode($atts, $content=null){
 	else
 		$loop_attribute = "";
 	
+	// Controls?
+	if ($controls == "false")
+		$controls_attribute = "";
+	else
+		$controls_attribute = " controls";
+	
 	// Is there a custom class?
 	if ($class)
 		$class = ' ' . $class;
@@ -122,7 +129,7 @@ function video_shortcode($atts, $content=null){
 	$videojs = <<<_end_
 
 	<!-- Begin Video.js -->
-	<video id="{$id}" class="video-js vjs-default-skin{$class}" width="{$width}" height="{$height}"{$poster_attribute} controls{$preload_attribute}{$autoplay_attribute}{$loop_attribute} data-setup="{}">
+	<video id="{$id}" class="video-js vjs-default-skin{$class}" width="{$width}" height="{$height}"{$poster_attribute}{$controls_attribute}{$preload_attribute}{$autoplay_attribute}{$loop_attribute} data-setup="{}">
 		{$mp4_source}
 		{$webm_source}
 		{$ogg_source}{$track}
@@ -165,7 +172,7 @@ function track_shortcode($atts, $content=null){
 		$default = "";
 	
 	$track = "
-		<track" . $kind . $src . $srclang . $label . $default . ">
+		<track" . $kind . $src . $srclang . $label . $default . " />
 	";
 	
 	return $track;

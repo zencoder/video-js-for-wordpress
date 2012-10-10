@@ -70,6 +70,11 @@ Start playing the video as soon as it's ready. Use 'true' or 'false'.
 Causes the video to start over as soon as it ends. Use 'true' or 'false'.
 
     [video loop="true"]
+
+### controls
+Use 'false' to hide the player controls.
+
+    [video controls="false"]
     
 ### id
 Add a custom ID to your video player.
@@ -88,7 +93,7 @@ Text Tracks are a function of HTML5 video for providing time triggered text to t
 
 ### All Attributes Example
 
-    [video mp4="http://video-js.zencoder.com/oceans-clip.mp4" ogg="http://video-js.zencoder.com/oceans-clip.ogg" webm="http://video-js.zencoder.com/oceans-clip.webm" poster="http://video-js.zencoder.com/oceans-clip.png" preload="auto" autoplay="true" width="640" height="264" id="movie-id" class="alignleft"][track kind="captions" src="http://example.com/path/to/captions.vtt" srclang="en" label="English" default="true"][/video]
+    [video mp4="http://video-js.zencoder.com/oceans-clip.mp4" ogg="http://video-js.zencoder.com/oceans-clip.ogg" webm="http://video-js.zencoder.com/oceans-clip.webm" poster="http://video-js.zencoder.com/oceans-clip.png" preload="auto" autoplay="true" width="640" height="264" id="movie-id" class="alignleft" controls="false"][track kind="captions" src="http://example.com/path/to/captions.vtt" srclang="en" label="English" default="true"][/video]
     
 
 Video.js Settings Screen
@@ -98,10 +103,11 @@ The values set here will be the default values for all videos, unless you specif
 
 == Changelog ==
 
-= 3.2.2 =
+= 3.2.1 =
 
 * Added support for tracks.
-* Adde loop support.
+* Added loop support.
+* Added the ability to disable controls.
 * Fixed a bug with the autoplay attribute.
 * Fixed mixed-content warnings on SSL pages.
 * Added a license to the plugin folder (LGPLv3).
