@@ -4,7 +4,7 @@ Donate link: http://videojs.com/
 Tags: html5, video, player, javascript
 Requires at least: 2.7
 Tested up to: 3.4.2
-Stable tag: 3.2.1
+Stable tag: 3.2.2
 
 Video.js is the most widely used HTML5 Video Player available. It allows you to embed video in your post or page using HTML5.
 
@@ -57,7 +57,7 @@ The height of the video.
 
 ### preload
 Start loading the video as soon as possible, before the user clicks play.
-Use 'auto', 'metadata', or 'none'. Auto will preload when the browser or devices allows it. Metadata will load only the meta data of the video.
+Use 'auto', 'metadata', or 'none'. Auto will preload when the browser or device allows it. Metadata will load only the meta data of the video.
 
     [video preload="auto"]
 
@@ -102,6 +102,10 @@ The values set here will be the default values for all videos, unless you specif
 
 
 == Changelog ==
+
+= 3.2.2 =
+
+* Fixed preload="none".
 
 = 3.2.1 =
 
