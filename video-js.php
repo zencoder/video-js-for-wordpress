@@ -1,14 +1,14 @@
 <?php
 /**
  * @package Video.js
- * @version 3.2.1
+ * @version 3.2.2
  */
 /*
 Plugin Name: Video.js - HTML5 Video Player for WordPress
 Plugin URI: http://videojs.com/
 Description: A video plugin for WordPress built on the widely used Video.js HTML5 video player library. Allows you to embed video in your post or page using HTML5 with Flash fallback support for non-HTML5 browsers.
 Author: <a href="http://steveheffernan.com">Steve Heffernan</a>, <a href="http://www.nosecreekweb.ca">Dustin Lammiman</a>
-Version: 3.2.1
+Version: 3.2.2
 */
 
 
@@ -91,11 +91,11 @@ function video_shortcode($atts, $content=null){
 	
 	// Preload the video?
 	if ($preload == "auto" || $preload == "true" || $preload == "on")
-		$preload_attribute = " preload";
+		$preload_attribute = ' preload="auto"';
 	elseif ($preload == "metadata")
 		$preload_attribute = ' preload="metadata"';
 	else 
-		$preload_attribute = "";
+		$preload_attribute = ' preload="none"';
 
 	// Autoplay the video?
 	if ($autoplay == "true" || $autoplay == "on")
