@@ -109,6 +109,10 @@ The values set here will be the default values for all videos, unless you specif
 
 = 3.2.1 =
 
+* Fixed preload="none".
+
+= 3.2.1 =
+
 * Added support for tracks.
 * Added loop support.
 * Added the ability to disable controls.
