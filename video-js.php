@@ -22,31 +22,17 @@ include_once($plugin_dir . 'admin.php');
 /* Include the script and css file in the page <head> */
 function add_videojs_header(){
 	$options = get_option('videojs_options');
-	if($options['videojs_cdn'] == 'on') { //use the cdn hosted version
-		echo "";
-		echo '
-		<script src="http://vjs.zencdn.net/c/video.js"></script>
-		';
-	} else { //use the self hosted version
-		echo '
-		<script src="' . plugins_url( 'videojs/video.min.js' , __FILE__ ) . '"></script>
-		<script type="text/javascript">
-			VideoJS.options.flash.swf = "'. plugins_url( 'videojs/video-js.swf' , __FILE__ ) .'";
-		</script>
-		';
-	}
-	
-	
-}
-add_action('wp_head','add_videojs_header');
-
-function add_videojs_css(){
-	$options = get_option('videojs_options');
 	
 	if($options['videojs_cdn'] == 'on') { //use the cdn hosted version
+		wp_register_script( 'videojs', 'http://vjs.zencdn.net/c/video.js' );
+		wp_enqueue_script( 'videojs' );
+		
 		wp_register_style( 'videojs', 'http://vjs.zencdn.net/c/video-js.css' );
 		wp_enqueue_style( 'videojs' );
 	} else { //use the self hosted version
+		wp_register_script( 'videojs', plugins_url( 'videojs/video.min.js' , __FILE__ ) );
+		wp_enqueue_script( 'videojs' );
+		
 		wp_register_style( 'videojs', plugins_url( 'videojs/video-js.min.css' , __FILE__ ) );
 		wp_enqueue_style( 'videojs' );
 	}
@@ -56,7 +42,21 @@ function add_videojs_css(){
 		wp_enqueue_style( 'responsive-videojs' );
 	}
 }
-add_action( 'wp_enqueue_scripts', 'add_videojs_css' );
+add_action( 'wp_enqueue_scripts', 'add_videojs_header' );
+
+
+/* Prevent mixed content warnings for the self-hosted version */
+function add_videojs_swf(){
+	$options = get_option('videojs_options');
+	if($options['videojs_cdn'] != 'on') {
+	echo '
+		<script type="text/javascript">
+			VideoJS.options.flash.swf = "'. plugins_url( 'videojs/video-js.swf' , __FILE__ ) .'";
+		</script>
+		';
+	}
+}
+add_action('wp_head','add_videojs_swf');
 
 
 /* The [video] shortcode */
