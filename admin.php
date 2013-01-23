@@ -17,6 +17,7 @@ function videojs_help($contextual_help, $screen_in, $screen) {
 		$contextual_help = <<<_end_
 		<p><strong>Video.js Settings Screen</strong></p>
 		<p>The values set here will be the default values for all videos, unless you specify differently in the shortcode. Uncheck <em>Use CDN hosted version?</em> if you want to use a self-hosted copy of Video.js instead of the CDN hosted version. <strong>Using the CDN hosted version is preferable in most situations.</strong></p>
+		<p>If you are using a responsive WordPress theme, you may want to check the <em>Responsive Video</em> checkbox.</p>
 _end_;
 	}
 	return $contextual_help;
@@ -58,6 +59,8 @@ function register_videojs_settings() {
 	add_settings_field('videojs_preload', 'Preload', 'preload_output', 'videojs-settings', 'videojs_defaults');
 	add_settings_field('videojs_autoplay', 'Autoplay', 'autoplay_output', 'videojs-settings', 'videojs_defaults');
 	
+	add_settings_field('videojs_responsive', 'Responsive Video', 'responsive_output', 'videojs-settings', 'videojs_defaults');
+	
 	add_settings_field('videojs_cdn', 'Use CDN hosted version?', 'cdn_output', 'videojs-settings', 'videojs_defaults');
 	
 	add_settings_field('videojs_reset', 'Restore defaults upon plugin deactivation/reactivation', 'reset_output', 'videojs-settings', 'videojs_defaults');
@@ -70,6 +73,7 @@ function videojs_options_validate($input) {
 	$newinput['videojs_width'] = $input['videojs_width'];
 	$newinput['videojs_preload'] = $input['videojs_preload'];
 	$newinput['videojs_autoplay'] = $input['videojs_autoplay'];
+	$newinput['videojs_responsive'] = $input['videojs_responsive'];
 	$newinput['videojs_cdn'] = $input['videojs_cdn'];
 	$newinput['videojs_reset'] = $input['videojs_reset'];
 	
@@ -112,6 +116,12 @@ function autoplay_output() {
 	echo "<input ".$checked." id='videojs_autoplay' name='videojs_options[videojs_autoplay]' type='checkbox' />";
 }
 
+function responsive_output() {
+	$options = get_option('videojs_options');
+	if($options['videojs_responsive']) { $checked = ' checked="checked" '; } else { $checked = ''; }
+	echo "<input ".$checked." id='videojs_responsive' name='videojs_options[videojs_responsive]' type='checkbox' />";
+}
+
 function cdn_output() {
 	$options = get_option('videojs_options');
 	if($options['videojs_cdn']) { $checked = ' checked="checked" '; } else { $checked = ''; }
@@ -131,7 +141,7 @@ register_activation_hook(plugin_dir_path( __FILE__ ) . 'video-js.php', 'add_defa
 function add_defaults_fn() {
 	$tmp = get_option('videojs_options');
     if(($tmp['videojs_reset']=='on')||(!is_array($tmp))) {
-		$arr = array("videojs_height"=>"264","videojs_width"=>"640","videojs_preload"=>"","videojs_autoplay"=>"","videojs_cdn"=>"on","videojs_reset"=>"");
+		$arr = array("videojs_height"=>"264","videojs_width"=>"640","videojs_preload"=>"","videojs_autoplay"=>"","videojs_responsive"=>"","videojs_cdn"=>"on","videojs_reset"=>"");
 		update_option('videojs_options', $arr);
 	}
 }

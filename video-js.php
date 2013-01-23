@@ -37,6 +37,11 @@ function add_videojs_header(){
 		</script>
 		';
 	}
+	
+	if($options['videojs_responsive'] == 'on') { //include the responsive stylesheet
+		wp_register_style( 'responsive-videojs', plugins_url('responsive-video.css', __FILE__) );
+		wp_enqueue_style( 'responsive-videojs' );
+	}
 }
 add_action('wp_head','add_videojs_header');
 
@@ -137,7 +142,22 @@ function video_shortcode($atts, $content=null){
 	<!-- End Video.js -->
 
 _end_;
-
+	
+	if($options['videojs_responsive'] == 'on') { //add the responsive wrapper
+		$ratio = $height/$width*100;
+		$videojs = <<<_end_
+		
+		<!-- Begin Video.js Responsive Wrapper -->
+		<div style='max-width:{$width}px;'>
+			<div class='video-wrapper' style='padding-bottom:{$ratio}%;'>
+				{$videojs}
+			</div>
+		</div>
+		<!-- End Video.js Responsive Wrapper -->
+		
+_end_;
+	}
+	
 	return $videojs;
 
 }

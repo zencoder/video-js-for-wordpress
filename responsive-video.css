@@ -1,0 +1,21 @@
+.video-wrapper {
+    position: relative;
+    padding-bottom: 74.25%; /* 4:3 ratio */
+    padding-top: 30px; /* IE6 workaround*/
+    height: 0;
+    overflow: hidden;
+}
+
+video,.videoWrapper,.video-js {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.video-js, img.vjs-poster {
+    width: 100% !important;
+    height: 100% !important; //these need !important because IE wants to set height/width to 100px
+    max-width: 100%;
+}
