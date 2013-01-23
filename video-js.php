@@ -25,12 +25,10 @@ function add_videojs_header(){
 	if($options['videojs_cdn'] == 'on') { //use the cdn hosted version
 		echo "";
 		echo '
-		<link href="http://vjs.zencdn.net/c/video-js.css" rel="stylesheet">
 		<script src="http://vjs.zencdn.net/c/video.js"></script>
 		';
 	} else { //use the self hosted version
 		echo '
-		<link href="' . plugins_url( 'videojs/video-js.min.css' , __FILE__ ) . '" rel="stylesheet">
 		<script src="' . plugins_url( 'videojs/video.min.js' , __FILE__ ) . '"></script>
 		<script type="text/javascript">
 			VideoJS.options.flash.swf = "'. plugins_url( 'videojs/video-js.swf' , __FILE__ ) .'";
@@ -38,12 +36,27 @@ function add_videojs_header(){
 		';
 	}
 	
+	
+}
+add_action('wp_head','add_videojs_header');
+
+function add_videojs_css(){
+	$options = get_option('videojs_options');
+	
+	if($options['videojs_cdn'] == 'on') { //use the cdn hosted version
+		wp_register_style( 'videojs', 'http://vjs.zencdn.net/c/video-js.css' );
+		wp_enqueue_style( 'videojs' );
+	} else { //use the self hosted version
+		wp_register_style( 'videojs', plugins_url( 'videojs/video-js.min.css' , __FILE__ ) );
+		wp_enqueue_style( 'videojs' );
+	}
+	
 	if($options['videojs_responsive'] == 'on') { //include the responsive stylesheet
 		wp_register_style( 'responsive-videojs', plugins_url('responsive-video.css', __FILE__) );
 		wp_enqueue_style( 'responsive-videojs' );
 	}
 }
-add_action('wp_head','add_videojs_header');
+add_action( 'wp_enqueue_scripts', 'add_videojs_css' );
 
 
 /* The [video] shortcode */
