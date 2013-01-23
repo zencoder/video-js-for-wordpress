@@ -6,8 +6,23 @@ if( is_admin() ) {
 }
 
 function videojs_menu() {
-	add_options_page('Video.js Settings', 'Video.js Settings', 'manage_options', 'videojs-settings', 'videojs_settings');
+	global $videojs_admin;
+	$videojs_admin = add_options_page('Video.js Settings', 'Video.js Settings', 'manage_options', 'videojs-settings', 'videojs_settings');
 }
+
+/* Contextual Help */
+function videojs_help($contextual_help, $screen_in, $screen) {
+	global $videojs_admin;
+	if ($screen_in == $videojs_admin) {
+		$contextual_help = <<<_end_
+		<p><strong>Video.js Settings Screen</strong></p>
+		<p>The values set here will be the default values for all videos, unless you specify differently in the shortcode. Uncheck <em>Use CDN hosted version?</em> if you want to use a self-hosted copy of Video.js instead of the CDN hosted version. <strong>Using the CDN hosted version is preferable in most situations.</strong></p>
+_end_;
+	}
+	return $contextual_help;
+}
+add_filter('contextual_help', 'videojs_help', 10, 3);
+
 
 function videojs_settings() {
 	if (!current_user_can('manage_options'))  {
@@ -25,6 +40,8 @@ function videojs_settings() {
 	<p class="submit">
 	<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
 	</p>
+	<h2>Using Video.JS</h2>
+	<?php echo file_get_contents(plugin_dir_path( __FILE__ ) . 'help.html'); ?>
 	</form>
 	</div>
 	<?php

@@ -1,0 +1,93 @@
+<p>Use the <strong>Insert HTML5 Video</strong> button in the WordPress editor or use the [video] shortcode in your post or page using the following options:</p>
+
+<h3>mp4</h3>
+
+<p>The location of the h.264/MP4 source for the video.</p>
+
+<pre><code>[video mp4="http://video-js.zencoder.com/oceans-clip.mp4"]
+</code></pre>
+
+<h3>ogg</h3>
+
+<p>The location of the Theora/Ogg source for the video.</p>
+
+<pre><code>[video ogg="http://video-js.zencoder.com/oceans-clip.ogg"]
+</code></pre>
+
+<h3>webm</h3>
+
+<p>The location of the VP8/WebM source for the video.</p>
+
+<pre><code>[video webm="http://video-js.zencoder.com/oceans-clip.webm"]
+</code></pre>
+
+<h3>poster</h3>
+
+<p>The location of the poster frame for the video.</p>
+
+<pre><code>[video poster="http://video-js.zencoder.com/oceans-clip.png"]
+</code></pre>
+
+<h3>width</h3>
+
+<p>The width of the video.</p>
+
+<pre><code>[video width="640"]
+</code></pre>
+
+<h3>height</h3>
+
+<p>The height of the video.</p>
+
+<pre><code>[video height="264"]
+</code></pre>
+
+<h3>preload</h3>
+
+<p>Start loading the video as soon as possible, before the user clicks play.
+Use 'auto', 'metadata', or 'none'. Auto will preload when the browser or device allows it. Metadata will load only the meta data of the video.</p>
+
+<pre><code>[video preload="auto"]
+</code></pre>
+
+<h3>autoplay</h3>
+
+<p>Start playing the video as soon as it's ready. Use 'true' or 'false'.</p>
+
+<pre><code>[video autoplay="true"]
+</code></pre>
+
+<h3>loop</h3>
+
+<p>Causes the video to start over as soon as it ends. Use 'true' or 'false'.</p>
+
+<pre><code>[video loop="true"]
+</code></pre>
+
+<h3>controls</h3>
+
+<p>Use 'false' to hide the player controls.</p>
+
+<pre><code>[video controls="false"]
+</code></pre>
+
+<h3>id</h3>
+
+<p>Add a custom ID to your video player.</p>
+
+<pre><code>[video id="movie-id"]
+</code></pre>
+
+<h3>class</h3>
+
+<p>Add a custom class to your player. Use full for floating the video player using 'alignleft' or 'alignright'.</p>
+
+<pre><code>[video class="alignright"]
+</code></pre>
+
+<h3>Tracks</h3>
+
+<p>Text Tracks are a function of HTML5 video for providing time triggered text to the viewer. To use tracks use the [track] shortcode inside of the [video] shortcode. You can set values for the kind, src, srclang, label, and default attributes. More information is available in the <a href="http://videojs.com/docs/tracks/">Video.js Documentation</a>.</p>
+
+<pre><code>[video][track kind="captions" src="http://video-js.zencoder.com/oceans-captions.vtt" srclang="en" label="English" default="true"][/video]
+</code></pre>
