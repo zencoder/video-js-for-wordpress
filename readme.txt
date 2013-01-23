@@ -103,11 +103,14 @@ The values set here will be the default values for all videos, unless you specif
 
 == Changelog ==
 
+= 3.2.3 =
+
+* Added a shortcode generator to the tinymce editor
+* Added "Using Video.JS" section and contextual help to admin screen
+* New "Responsive Video" option for sites with a responsive layout
+* Enqueue scripts and styles
+
 = 3.2.2 =
-
-* Fixed preload="none".
-
-= 3.2.1 =
 
 * Fixed preload="none".
 
