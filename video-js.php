@@ -180,23 +180,7 @@ function track_shortcode($atts, $content=null){
 add_shortcode('track', 'track_shortcode');
 
 
-/* TinyMCE Shortcode Generator *//*
-function video_js_button($context) {
-	
-	//path to my icon
-	$img = plugin_dir_url( __FILE__ ) . 'video-js.png';
-
-	//our popup's title
-	$title = 'Add HTML5 Video';
-
-	//append the icon
-	$context .= "<a href='" . plugin_dir_url( __FILE__ ) . "generator.php?KeepThis=true&TB_iframe=true&width=300&height=200' class='thickbox' title='{$title}'>
-    <img src='{$img}' /></a>";
-
-	return $context;
-}
-add_action('media_buttons_context',  'video_js_button');*/
-
+/* TinyMCE Shortcode Generator */
 function video_js_button() {
 	if ( ! current_user_can('edit_posts') && ! current_user_can('edit_pages') )
 		return;
@@ -210,7 +194,7 @@ add_action('init', 'video_js_button');
 function register_video_js_button($buttons) {
 	array_push($buttons, "|", "videojs");
 	$options = get_option('videojs_options');
-	echo('<div style="display:none"><input type="hidden" id="videojs-autoplay-default" value="' . $options['videojs_autoplay'] . '"><input type="hidden" id="videojs-preload-default" value="' . $options['videojs_preload'] . '"></div>');
+	echo('<div style="display:none"><input type="hidden" id="videojs-autoplay-default" value="' . $options['videojs_autoplay'] . '"><input type="hidden" id="videojs-preload-default" value="' . $options['videojs_preload'] . '"></div>'); //the default values from the admin screen, to be used by our javascript
 	return $buttons;
 }
 
