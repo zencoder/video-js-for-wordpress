@@ -41,7 +41,7 @@ function videojs_settings() {
 	<p class="submit">
 	<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
 	</p>
-	<h2>Using Video.JS</h2>
+	<h2>Using Video.js</h2>
 	<?php echo file_get_contents(plugin_dir_path( __FILE__ ) . 'help.html'); ?>
 	</form>
 	</div>

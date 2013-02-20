@@ -3,7 +3,7 @@ Contributors: nosecreek, Steve Heffernan
 Donate link: http://videojs.com/
 Tags: html5, video, player, javascript
 Requires at least: 2.7
-Tested up to: 3.4.2
+Tested up to: 3.5.1
 Stable tag: 3.2.2
 
 Video.js is the most widely used HTML5 Video Player available. It allows you to embed video in your post or page using HTML5.
@@ -100,13 +100,15 @@ Video.js Settings Screen
 ------------------------
 The values set here will be the default values for all videos, unless you specify differently in the shortcode. Uncheck "Use CDN hosted version?" if you want to use a self-hosted copy of Video.js instead of the CDN hosted version. *Using the CDN hosted version is preferable in most situations.*
 
+If you are using a responsive WordPress theme, you may want to check the *Responsive Video* checkbox.
+
 
 == Changelog ==
 
 = 3.2.3 =
 
 * Added a shortcode generator to the tinymce editor
-* Added "Using Video.JS" section and contextual help to admin screen
+* Added "Using Video.js" section and contextual help to admin screen
 * New "Responsive Video" option for sites with a responsive layout
 * Enqueue scripts and styles
 

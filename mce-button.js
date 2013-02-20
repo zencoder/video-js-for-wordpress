@@ -8,7 +8,7 @@
 					var width = jQuery(window).width(), H = jQuery(window).height(), W = ( 720 < width ) ? 720 : width;
 					W = W - 80;
 					H = H - 124;
-					tb_show('Insert VideoJS HTML5 Video', '#TB_inline?inlineId=videoJSpopup&width=' + W + '&height=' + H);
+					tb_show('Insert Video.js HTML5 Video', '#TB_inline?inlineId=videoJSpopup&width=' + W + '&height=' + H);
 					jQuery("#TB_window").animate({
 						height: H + 40 + 'px'
 					});
