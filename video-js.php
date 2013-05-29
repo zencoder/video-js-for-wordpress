@@ -24,16 +24,16 @@ function add_videojs_header(){
 	$options = get_option('videojs_options');
 	
 	if($options['videojs_cdn'] == 'on') { //use the cdn hosted version
-		wp_register_script( 'videojs', 'http://vjs.zencdn.net/c/video.js' );
+		wp_register_script( 'videojs', 'http://vjs.zencdn.net/4.0/video.js' );
 		wp_enqueue_script( 'videojs' );
 		
-		wp_register_style( 'videojs', 'http://vjs.zencdn.net/c/video-js.css' );
+		wp_register_style( 'videojs', 'http://vjs.zencdn.net/4.0/video-js.css' );
 		wp_enqueue_style( 'videojs' );
 	} else { //use the self hosted version
-		wp_register_script( 'videojs', plugins_url( 'videojs/video.min.js' , __FILE__ ) );
+		wp_register_script( 'videojs', plugins_url( 'videojs/video.js' , __FILE__ ) );
 		wp_enqueue_script( 'videojs' );
 		
-		wp_register_style( 'videojs', plugins_url( 'videojs/video-js.min.css' , __FILE__ ) );
+		wp_register_style( 'videojs', plugins_url( 'videojs/video-js.css' , __FILE__ ) );
 		wp_enqueue_style( 'videojs' );
 	}
 	
