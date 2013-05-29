@@ -1,0 +1,10 @@
+.vjs-default-skin div.vjs-big-play-button {
+	top: 50%;
+	left: 50%;
+	margin: -4em 0 0 -6em;
+}
+
+.vjs-default-skin .vjs-time-controls div, .vjs-default-skin .vjs-time-divider span {
+	font-size: 1em;
+	line-height: 3em;
+}

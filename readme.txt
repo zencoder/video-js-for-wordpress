@@ -4,7 +4,7 @@ Donate link: http://videojs.com/
 Tags: html5, video, player, javascript
 Requires at least: 2.7
 Tested up to: 3.5.1
-Stable tag: 3.2.3
+Stable tag: 4.0.0
 
 Video.js is the most widely used HTML5 Video Player available. It allows you to embed video in your post or page using HTML5.
 
@@ -107,7 +107,8 @@ If you are using a responsive WordPress theme, you may want to check the *Respon
 
 = 4.0.0 =
 
-* Added a default aspect ratio for responsive videos (16:9)
+* Updated to use Video.JS 4. This is a major update to Video.JS so please test this plugin with your site before using it in production. A description of changes in the new version is available at http://blog.videojs.com/post/50021214078/video-js-4-0-now-available.
+* Added a default aspect ratio for responsive videos (16:9).
 
 = 3.2.3 =
 

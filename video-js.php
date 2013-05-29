@@ -1,14 +1,14 @@
 <?php
 /**
  * @package Video.js
- * @version 3.2.3
+ * @version 4.0.0
  */
 /*
 Plugin Name: Video.js - HTML5 Video Player for WordPress
 Plugin URI: http://videojs.com/
-Description: A video plugin for WordPress built on the widely used Video.js HTML5 video player library. Allows you to embed video in your post or page using HTML5 with Flash fallback support for non-HTML5 browsers.
+Description: Self-hosted responsive HTML5 video for WordPress, built on the widely used Video.js HTML5 video player library. Allows you to embed video in your post or page using HTML5 with Flash fallback support for non-HTML5 browsers.
 Author: <a href="http://www.nosecreekweb.ca">Dustin Lammiman</a>, <a href="http://steveheffernan.com">Steve Heffernan</a>
-Version: 3.2.3
+Version: 4.0.0
 */
 
 
@@ -22,6 +22,9 @@ include_once($plugin_dir . 'admin.php');
 /* Include the script and css file in the page <head> */
 function add_videojs_header(){
 	$options = get_option('videojs_options');
+	
+	wp_register_style( 'videojs-plugin', plugins_url( 'plugin-styles.css' , __FILE__ ) );
+	wp_enqueue_style( 'videojs-plugin' );
 	
 	if($options['videojs_cdn'] == 'on') { //use the cdn hosted version
 		wp_register_script( 'videojs', 'http://vjs.zencdn.net/4.0/video.js' );
