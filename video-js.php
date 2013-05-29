@@ -49,7 +49,7 @@ add_action( 'wp_enqueue_scripts', 'add_videojs_header' );
 function add_videojs_swf(){
 	$options = get_option('videojs_options');
 	if($options['videojs_cdn'] != 'on') {
-	echo '
+		echo '
 		<script type="text/javascript">
 			VideoJS.options.flash.swf = "'. plugins_url( 'videojs/video-js.swf' , __FILE__ ) .'";
 		</script>
@@ -144,6 +144,7 @@ function video_shortcode($atts, $content=null){
 		$track = "";
 
 
+	//Output the <video> tag
 	$videojs = <<<_end_
 
 	<!-- Begin Video.js -->
@@ -157,11 +158,15 @@ function video_shortcode($atts, $content=null){
 _end_;
 	
 	if($options['videojs_responsive'] == 'on') { //add the responsive wrapper
-		$ratio = $height/$width*100;
+		
+		$ratio = ($height && $width) ? $height/$width*100 : 56.25; //Set the aspect ratio (default 16:9)
+		
+		$maxwidth = ($width) ? "max-width:{$width}px" : ""; //Set the max-width
+		
 		$videojs = <<<_end_
 		
 		<!-- Begin Video.js Responsive Wrapper -->
-		<div style='max-width:{$width}px;'>
+		<div style='{$maxwidth}'>
 			<div class='video-wrapper' style='padding-bottom:{$ratio}%;'>
 				{$videojs}
 			</div>

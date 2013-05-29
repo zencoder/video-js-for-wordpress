@@ -105,6 +105,10 @@ If you are using a responsive WordPress theme, you may want to check the *Respon
 
 == Changelog ==
 
+= 4.0.0 =
+
+* Added a default aspect ratio for responsive videos (16:9)
+
 = 3.2.3 =
 
 * Added a shortcode generator to the tinymce editor
