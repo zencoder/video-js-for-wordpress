@@ -3,6 +3,11 @@
 if( is_admin() ) {
 	add_action('admin_menu', 'videojs_menu');
 	add_action('admin_init', 'register_videojs_settings');
+	add_action( 'admin_enqueue_scripts', 'videojs_enqueue_color_picker' );
+	function videojs_enqueue_color_picker() {
+		wp_enqueue_style( 'wp-color-picker' );
+		wp_enqueue_script( 'videojs-admin', plugins_url('admin.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
+	}
 }
 
 function videojs_menu() {
@@ -63,6 +68,10 @@ function register_videojs_settings() {
 	
 	add_settings_field('videojs_cdn', 'Use CDN hosted version?', 'cdn_output', 'videojs-settings', 'videojs_defaults');
 	
+	add_settings_field('videojs_color_one', 'Icon Color', 'color_one_output', 'videojs-settings', 'videojs_defaults');
+	add_settings_field('videojs_color_two', 'Progress Color', 'color_two_output', 'videojs-settings', 'videojs_defaults');
+	add_settings_field('videojs_color_three', 'Background Color', 'color_three_output', 'videojs-settings', 'videojs_defaults');
+	
 	add_settings_field('videojs_reset', 'Restore defaults upon plugin deactivation/reactivation', 'reset_output', 'videojs-settings', 'videojs_defaults');
 }
 
@@ -75,6 +84,9 @@ function videojs_options_validate($input) {
 	$newinput['videojs_autoplay'] = $input['videojs_autoplay'];
 	$newinput['videojs_responsive'] = $input['videojs_responsive'];
 	$newinput['videojs_cdn'] = $input['videojs_cdn'];
+	$newinput['videojs_color_one'] = $input['videojs_color_one'];
+	$newinput['videojs_color_two'] = $input['videojs_color_two'];
+	$newinput['videojs_color_three'] = $input['videojs_color_three'];
 	$newinput['videojs_reset'] = $input['videojs_reset'];
 	
 	if(!preg_match("/^\d+$/", trim($newinput['videojs_width']))) {
@@ -83,6 +95,18 @@ function videojs_options_validate($input) {
 	 
 	 if(!preg_match("/^\d+$/", trim($newinput['videojs_height']))) {
 		 $newinput['videojs_height'] = '';
+	 }
+	 
+	 if(!preg_match("/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/", trim($newinput['videojs_color_one']))) {
+		 $newinput['videojs_color_one'] = '#ccc';
+	 }
+	 
+	 if(!preg_match("/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/", trim($newinput['videojs_color_two']))) {
+		 $newinput['videojs_color_two'] = '#66A8CC';
+	 }
+	 
+	 if(!preg_match("/#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?\b/", trim($newinput['videojs_color_three']))) {
+		 $newinput['videojs_color_three'] = '#000';
 	 }
 	
 	return $newinput;
@@ -128,6 +152,21 @@ function cdn_output() {
 	echo "<input ".$checked." id='videojs_cdn' name='videojs_options[videojs_cdn]' type='checkbox' />";
 }
 
+function color_one_output() {
+	$options = get_option('videojs_options');
+	echo "<input id='videojs_color_one' name='videojs_options[videojs_color_one]' size='40' type='text' value='{$options['videojs_color_one']}' data-default-color='#ccc' class='videojs-color-field' />";
+}
+
+function color_two_output() {
+	$options = get_option('videojs_options');
+	echo "<input id='videojs_color_two' name='videojs_options[videojs_color_two]' size='40' type='text' value='{$options['videojs_color_two']}' data-default-color='#66A8CC' class='videojs-color-field' />";
+}
+
+function color_three_output() {
+	$options = get_option('videojs_options');
+	echo "<input id='videojs_color_three' name='videojs_options[videojs_color_three]' size='40' type='text' value='{$options['videojs_color_three']}' data-default-color='#000' class='videojs-color-field' />";
+}
+
 function reset_output() {
 	$options = get_option('videojs_options');
 	if($options['videojs_reset']) { $checked = ' checked="checked" '; } else { $checked = ''; }
@@ -141,7 +180,7 @@ register_activation_hook(plugin_dir_path( __FILE__ ) . 'video-js.php', 'add_defa
 function add_defaults_fn() {
 	$tmp = get_option('videojs_options');
     if(($tmp['videojs_reset']=='on')||(!is_array($tmp))) {
-		$arr = array("videojs_height"=>"264","videojs_width"=>"640","videojs_preload"=>"","videojs_autoplay"=>"","videojs_responsive"=>"","videojs_cdn"=>"on","videojs_reset"=>"");
+		$arr = array("videojs_height"=>"264","videojs_width"=>"640","videojs_preload"=>"","videojs_autoplay"=>"","videojs_responsive"=>"","videojs_cdn"=>"on","videojs_color_one"=>"#ccc","videojs_color_two"=>"#66A8CC","videojs_color_three"=>"#000","videojs_reset"=>"");
 		update_option('videojs_options', $arr);
 	}
 }

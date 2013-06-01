@@ -19,6 +19,10 @@ $plugin_dir = plugin_dir_path( __FILE__ );
 include_once($plugin_dir . 'admin.php');
 
 
+/* Useful Functions */
+include_once($plugin_dir . 'lib.php');
+
+
 /* Include the script and css file in the page <head> */
 function add_videojs_header(){
 	$options = get_option('videojs_options');
@@ -46,6 +50,25 @@ function add_videojs_header(){
 	}
 }
 add_action( 'wp_enqueue_scripts', 'add_videojs_header' );
+
+
+/* Include custom color styles in the site header */
+function videojs_custom_colors() {
+	$options = get_option('videojs_options');
+	
+	if($options['videojs_color_one'] != "#ccc" || $options['videojs_color_two'] != "#66A8CC" || $options['videojs_color_three'] != "#000") { //If custom colors are used
+		$color3 = hex2RGB($options['videojs_color_three'], true); //Background color is rgba
+		echo "
+	<style type='text/css'>
+		.vjs-default-skin { color: " . $options['videojs_color_one'] . " }
+		.vjs-default-skin .vjs-play-progress, .vjs-default-skin .vjs-volume-level { background-color: " . $options['videojs_color_two'] . " }
+		.vjs-default-skin .vjs-control-bar, .vjs-default-skin .vjs-big-play-button { background: rgba(" . $color3 . ",0.7) }
+		.vjs-default-skin .vjs-slider { background: rgba(" . $color3 . ",0.2333333333333333) }
+	</style>
+		";
+	}
+}
+add_action( 'wp_head', 'videojs_custom_colors' );
 
 
 /* Prevent mixed content warnings for the self-hosted version */
