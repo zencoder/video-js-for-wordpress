@@ -77,7 +77,7 @@ function add_videojs_swf(){
 	if($options['videojs_cdn'] != 'on') {
 		echo '
 		<script type="text/javascript">
-			VideoJS.options.flash.swf = "'. plugins_url( 'videojs/video-js.swf' , __FILE__ ) .'";
+			videojs.options.flash.swf = "'. plugins_url( 'videojs/video-js.swf' , __FILE__ ) .'";
 		</script>
 		';
 	}
