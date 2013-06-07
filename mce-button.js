@@ -115,7 +115,7 @@
 		
 		form.find('#videojs-submit').click(function(){
 			
-			var shortcode = '[video';
+			var shortcode = '[videojs';
 			
 			//text options
 			var options = { 

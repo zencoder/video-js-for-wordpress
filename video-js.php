@@ -85,7 +85,7 @@ function add_videojs_swf(){
 add_action('wp_head','add_videojs_swf');
 
 
-/* The [video] shortcode */
+/* The [video] or [videojs] shortcode */
 function video_shortcode($atts, $content=null){
 	
 	$options = get_option('videojs_options'); //load the defaults
@@ -205,7 +205,12 @@ _end_;
 	return $videojs;
 
 }
-add_shortcode('video', 'video_shortcode');
+add_shortcode('videojs', 'video_shortcode');
+//Only use the [video] shortcode if the correct option is set
+$options = get_option('videojs_options');
+if( !array_key_exists('videojs_video_shortcode', $options) || $options['videojs_video_shortcode'] ){
+	add_shortcode('video', 'video_shortcode');
+}
 
 
 /* The [track] shortcode */

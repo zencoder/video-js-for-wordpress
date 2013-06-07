@@ -20,7 +20,7 @@ This section describes how to install the plugin and get it working.
 
 1. Upload the `videojs-html5-video-player-for-wordpress` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Use the [video] shortcode in your post or page using the following options.
+3. Use the [videojs] shortcode in your post or page using the following options.
 
 Video Shortcode Options
 -----------------------
@@ -28,72 +28,72 @@ Video Shortcode Options
 ### mp4
 The location of the h.264/MP4 source for the video.
     
-    [video mp4="http://video-js.zencoder.com/oceans-clip.mp4"]
+    [videojs mp4="http://video-js.zencoder.com/oceans-clip.mp4"]
 
 ### ogg
 The location of the Theora/Ogg source for the video.
 
-    [video ogg="http://video-js.zencoder.com/oceans-clip.ogg"]
+    [videojs ogg="http://video-js.zencoder.com/oceans-clip.ogg"]
 
 ### webm
 The location of the VP8/WebM source for the video.
 
-    [video webm="http://video-js.zencoder.com/oceans-clip.webm"]
+    [videojs webm="http://video-js.zencoder.com/oceans-clip.webm"]
 
 ### poster
 The location of the poster frame for the video.
 
-    [video poster="http://video-js.zencoder.com/oceans-clip.png"]
+    [videojs poster="http://video-js.zencoder.com/oceans-clip.png"]
 
 ### width
 The width of the video.
 
-    [video width="640"]
+    [videojs width="640"]
 
 ### height
 The height of the video.
 
-    [video height="264"]
+    [videojs height="264"]
 
 ### preload
 Start loading the video as soon as possible, before the user clicks play.
 Use 'auto', 'metadata', or 'none'. Auto will preload when the browser or device allows it. Metadata will load only the meta data of the video.
 
-    [video preload="auto"]
+    [videojs preload="auto"]
 
 ### autoplay
 Start playing the video as soon as it's ready. Use 'true' or 'false'.
 
-    [video autoplay="true"]
+    [videojs autoplay="true"]
 
 ### loop
 Causes the video to start over as soon as it ends. Use 'true' or 'false'.
 
-    [video loop="true"]
+    [videojs loop="true"]
 
 ### controls
 Use 'false' to hide the player controls.
 
-    [video controls="false"]
+    [videojs controls="false"]
     
 ### id
 Add a custom ID to your video player.
 
-    [video id="movie-id"]
+    [videojs id="movie-id"]
     
 ### class
 Add a custom class to your player. Use full for floating the video player using 'alignleft' or 'alignright'.
 
-    [video class="alignright"]
+    [videojs class="alignright"]
 
 ### Tracks
 Text Tracks are a function of HTML5 video for providing time triggered text to the viewer. To use tracks use the [track] shortcode inside of the [video] shortcode. You can set values for the kind, src, srclang, label, and default attributes. More information is available in the [Video.js Documentation](http://videojs.com/docs/tracks/).
 
-    [video][track kind="captions" src="http://video-js.zencoder.com/oceans-captions.vtt" srclang="en" label="English" default="true"][/video]
+    [videojs][track kind="captions" src="http://video-js.zencoder.com/oceans-captions.vtt" srclang="en" label="English" default="true"][/videojs]
 
 ### All Attributes Example
 
-    [video mp4="http://video-js.zencoder.com/oceans-clip.mp4" ogg="http://video-js.zencoder.com/oceans-clip.ogg" webm="http://video-js.zencoder.com/oceans-clip.webm" poster="http://video-js.zencoder.com/oceans-clip.png" preload="auto" autoplay="true" width="640" height="264" id="movie-id" class="alignleft" controls="false"][track kind="captions" src="http://example.com/path/to/captions.vtt" srclang="en" label="English" default="true"][/video]
+    [videojs mp4="http://video-js.zencoder.com/oceans-clip.mp4" ogg="http://video-js.zencoder.com/oceans-clip.ogg" webm="http://video-js.zencoder.com/oceans-clip.webm" poster="http://video-js.zencoder.com/oceans-clip.png" preload="auto" autoplay="true" width="640" height="264" id="movie-id" class="alignleft" controls="false"][track kind="captions" src="http://example.com/path/to/captions.vtt" srclang="en" label="English" default="true"][/videojs]
     
 
 Video.js Settings Screen
@@ -101,6 +101,8 @@ Video.js Settings Screen
 The values set here will be the default values for all videos, unless you specify differently in the shortcode. Uncheck "Use CDN hosted version?" if you want to use a self-hosted copy of Video.js instead of the CDN hosted version. *Using the CDN hosted version is preferable in most situations.*
 
 If you are using a responsive WordPress theme, you may want to check the *Responsive Video* checkbox.
+
+Uncheck the *Use the [video] shortcode?* option __only__ if you are using WordPress 3.6+ and wish to use the [video] tag for MediaElement.js. You will still be able to use the [videojs] tag to embed videos using Video.js.
 
 
 == Changelog ==
@@ -110,6 +112,7 @@ If you are using a responsive WordPress theme, you may want to check the *Respon
 * Updated to use Video.js 4. This is a major update to Video.js so please test this plugin with your site before using it in production. A description of changes in the new version is available at http://blog.videojs.com/post/50021214078/video-js-4-0-now-available.
 * Added custom color options to the admin page to allow for easy styling of the player.
 * Added a default aspect ratio for responsive videos (16:9).
+* Changed the default shortcode to [videojs] (for better compatibility with future WordPress versions).
 
 = 3.2.3 =
 
