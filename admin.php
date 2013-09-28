@@ -1,20 +1,16 @@
 <?php
 
-if( is_admin() ) {
-	add_action('admin_menu', 'videojs_menu');
-	add_action('admin_init', 'register_videojs_settings');
-	add_action('admin_init', 'update_videojs');
-	add_action( 'admin_enqueue_scripts', 'videojs_enqueue_color_picker' );
-	function videojs_enqueue_color_picker() {
-		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_script( 'videojs-admin', plugins_url('admin.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
-	}
+function videojs_enqueue_color_picker() {
+	wp_enqueue_style( 'wp-color-picker' );
+	wp_enqueue_script( 'videojs-admin', plugins_url('admin.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
 }
+add_action('load-settings_page_videojs-settings', 'videojs_enqueue_color_picker');
 
 function videojs_menu() {
 	global $videojs_admin;
 	$videojs_admin = add_options_page('Video.js Settings', 'Video.js Settings', 'manage_options', 'videojs-settings', 'videojs_settings');
 }
+add_action('admin_menu', 'videojs_menu');
 
 /* Contextual Help */
 function videojs_help($contextual_help, $screen_in, $screen) {
@@ -55,6 +51,7 @@ function videojs_settings() {
 	<?php
 	
 }
+add_action('admin_init', 'register_videojs_settings');
 
 function register_videojs_settings() {
 	register_setting('videojs_options', 'videojs_options', 'videojs_options_validate');
@@ -218,5 +215,6 @@ function update_videojs() {
 		update_option("videojs_db_version", $videojs_db_version); //Update the database version setting
 	}
 }
+add_action('admin_init', 'update_videojs');
 
 ?>
