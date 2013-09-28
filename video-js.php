@@ -1,14 +1,14 @@
 <?php
 /**
  * @package Video.js
- * @version 4.0.0
+ * @version 4.2.0
  */
 /*
 Plugin Name: Video.js - HTML5 Video Player for WordPress
 Plugin URI: http://videojs.com/
 Description: Self-hosted responsive HTML5 video for WordPress, built on the widely used Video.js HTML5 video player library. Allows you to embed video in your post or page using HTML5 with Flash fallback support for non-HTML5 browsers.
 Author: <a href="http://www.nosecreekweb.ca">Dustin Lammiman</a>, <a href="http://steveheffernan.com">Steve Heffernan</a>
-Version: 4.0.0
+Version: 4.2.0
 */
 
 
@@ -25,28 +25,33 @@ include_once($plugin_dir . 'lib.php');
 
 /* Include the script and css file in the page <head> */
 function add_videojs_header(){
-	$options = get_option('videojs_options');
 	
-	wp_register_style( 'videojs-plugin', plugins_url( 'plugin-styles.css' , __FILE__ ) );
-	wp_enqueue_style( 'videojs-plugin' );
+	global $post;
+	if( !function_exists('has_shortcode') || has_shortcode( $post->post_content, 'videojs') || has_shortcode( $post->post_content, 'video')) {
 	
-	if($options['videojs_cdn'] == 'on') { //use the cdn hosted version
-		wp_register_script( 'videojs', 'http://vjs.zencdn.net/4.2/video.js' );
-		wp_enqueue_script( 'videojs' );
+		$options = get_option('videojs_options');
 		
-		wp_register_style( 'videojs', 'http://vjs.zencdn.net/4.2/video-js.css' );
-		wp_enqueue_style( 'videojs' );
-	} else { //use the self hosted version
-		wp_register_script( 'videojs', plugins_url( 'videojs/video.js' , __FILE__ ) );
-		wp_enqueue_script( 'videojs' );
+		wp_register_style( 'videojs-plugin', plugins_url( 'plugin-styles.css' , __FILE__ ) );
+		wp_enqueue_style( 'videojs-plugin' );
 		
-		wp_register_style( 'videojs', plugins_url( 'videojs/video-js.css' , __FILE__ ) );
-		wp_enqueue_style( 'videojs' );
-	}
-	
-	if($options['videojs_responsive'] == 'on') { //include the responsive stylesheet
-		wp_register_style( 'responsive-videojs', plugins_url('responsive-video.css', __FILE__) );
-		wp_enqueue_style( 'responsive-videojs' );
+		if($options['videojs_cdn'] == 'on') { //use the cdn hosted version
+			wp_register_script( 'videojs', 'http://vjs.zencdn.net/4.2/video.js' );
+			wp_enqueue_script( 'videojs' );
+			
+			wp_register_style( 'videojs', 'http://vjs.zencdn.net/4.2/video-js.css' );
+			wp_enqueue_style( 'videojs' );
+		} else { //use the self hosted version
+			wp_register_script( 'videojs', plugins_url( 'videojs/video.js' , __FILE__ ) );
+			wp_enqueue_script( 'videojs' );
+			
+			wp_register_style( 'videojs', plugins_url( 'videojs/video-js.css' , __FILE__ ) );
+			wp_enqueue_style( 'videojs' );
+		}
+		
+		if($options['videojs_responsive'] == 'on') { //include the responsive stylesheet
+			wp_register_style( 'responsive-videojs', plugins_url('responsive-video.css', __FILE__) );
+			wp_enqueue_style( 'responsive-videojs' );
+		}
 	}
 }
 add_action( 'wp_enqueue_scripts', 'add_videojs_header' );
