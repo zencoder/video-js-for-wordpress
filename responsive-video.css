@@ -1,7 +1,7 @@
 .video-wrapper {
     position: relative;
     padding-bottom: 74.25%; /* 4:3 ratio */
-    padding-top: 30px; /* IE6 workaround*/
+/*	padding-top: 30px; /* IE6 workaround*/
     height: 0;
     overflow: hidden;
 }
