@@ -22,8 +22,8 @@ This section describes how to install the plugin and get it working.
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Use the [videojs] shortcode in your post or page using the following options.
 
-Video Shortcode Options
------------------------
+##Video Shortcode Options
+-------------------------
 
 ### mp4
 The location of the h.264/MP4 source for the video.
@@ -96,8 +96,8 @@ Text Tracks are a function of HTML5 video for providing time triggered text to t
     [videojs mp4="http://video-js.zencoder.com/oceans-clip.mp4" ogg="http://video-js.zencoder.com/oceans-clip.ogg" webm="http://video-js.zencoder.com/oceans-clip.webm" poster="http://video-js.zencoder.com/oceans-clip.png" preload="auto" autoplay="true" width="640" height="264" id="movie-id" class="alignleft" controls="false"][track kind="captions" src="http://example.com/path/to/captions.vtt" srclang="en" label="English" default="true"][/videojs]
     
 
-Video.js Settings Screen
-------------------------
+##Video.js Settings Screen
+--------------------------
 The values set here will be the default values for all videos, unless you specify differently in the shortcode. Uncheck "Use CDN hosted version?" if you want to use a self-hosted copy of Video.js instead of the CDN hosted version. *Using the CDN hosted version is preferable in most situations.*
 
 If you are using a responsive WordPress theme, you may want to check the *Responsive Video* checkbox.
