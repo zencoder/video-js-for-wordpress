@@ -64,6 +64,11 @@
 				<small>The location of the Theora/Ogg source for the video.</small></td>\
 			</tr>\
 			<tr>\
+				<th><label for="videojs-youtube">YouTube Url</label></th>\
+				<td><input type="text" name="videojs-youtube" id="videojs-youtube"><br>\
+				<small>The location of the YouTube source for the video.</small></td>\
+			</tr>\
+			<tr>\
 				<th><label for="videojs-poster">Poster Image</label></th>\
 				<td><input type="text" name="videojs-poster" id="videojs-poster"><br>\
 				<small>The location of the poster frame for the video.</small></td>\
