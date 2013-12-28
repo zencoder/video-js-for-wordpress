@@ -52,6 +52,10 @@ function add_videojs_header(){
 			wp_register_style( 'responsive-videojs', plugins_url('responsive-video.css', __FILE__) );
 			wp_enqueue_style( 'responsive-videojs' );
 		}
+		
+		// adding youtube plugin
+		wp_register_script( 'videojs-youtube', plugins_url( 'videojs/vjs.youtube.js' , __FILE__ ) );
+		wp_enqueue_script( 'videojs-youtube' );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'add_videojs_header' );
@@ -99,6 +103,7 @@ function video_shortcode($atts, $content=null){
 		'mp4' => '',
 		'webm' => '',
 		'ogg' => '',
+		'youtube' => '',
 		'poster' => '',
 		'width' => $options['videojs_width'],
 		'height' => $options['videojs_height'],
@@ -110,6 +115,8 @@ function video_shortcode($atts, $content=null){
 		'class' => ''
 	), $atts));
 
+	$dataSetup = array();
+	
 	// ID is required for multiple videos to work
 	if ($id == '')
 		$id = 'example_video_id_'.rand();
@@ -131,7 +138,11 @@ function video_shortcode($atts, $content=null){
 		$ogg_source = '<source src="'.$ogg.'" type=\'video/ogg; codecs="theora, vorbis"\' />';
 	else
 		$ogg_source = '';
-	
+		
+	if ($youtube) {
+		$dataSetup['techOrder'] = array("youtube");
+		$dataSetup['src'] = $youtube;
+	}
 	// Poster image supplied
 	if ($poster)
 		$poster_attribute = ' poster="'.$poster.'"';
@@ -174,12 +185,13 @@ function video_shortcode($atts, $content=null){
 	else
 		$track = "";
 
+	$jsonDataSetup = json_encode($dataSetup);
 
 	//Output the <video> tag
 	$videojs = <<<_end_
 
 	<!-- Begin Video.js -->
-	<video id="{$id}" class="video-js vjs-default-skin{$class}" width="{$width}" height="{$height}"{$poster_attribute}{$controls_attribute}{$preload_attribute}{$autoplay_attribute}{$loop_attribute} data-setup="{}">
+	<video id="{$id}" class="video-js vjs-default-skin{$class}" width="{$width}" height="{$height}"{$poster_attribute}{$controls_attribute}{$preload_attribute}{$autoplay_attribute}{$loop_attribute} data-setup='{$jsonDataSetup}'>
 		{$mp4_source}
 		{$webm_source}
 		{$ogg_source}{$track}

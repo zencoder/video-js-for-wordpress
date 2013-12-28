@@ -1,10 +1,10 @@
 === Video.js - HTML5 Video Player for Wordpress ===
-Contributors: nosecreek, Steve Heffernan
+Contributors: nosecreek, Steve Heffernan, schnere
 Donate link: http://videojs.com/
 Tags: html5, video, player, javascript
 Requires at least: 2.7
-Tested up to: 3.6.1
-Stable tag: 4.2.0
+Tested up to: 3.7.1
+Stable tag: 4.3.0
 
 Self-hosted responsive HTML5 video for WordPress, built on the widely used Video.js HTML5 video player. Embed video in your post or page using HTML5.
 
@@ -39,6 +39,11 @@ The location of the Theora/Ogg source for the video.
 The location of the VP8/WebM source for the video.
 
     [videojs webm="http://video-js.zencoder.com/oceans-clip.webm"]
+    
+### youtube
+The location of the YouTube source for the video.
+
+    [videojs youtube="http://www.youtube.com/watch?v=DJU6ppZAaec"]
 
 ### poster
 The location of the poster frame for the video.
@@ -106,6 +111,11 @@ Uncheck the *Use the [video] shortcode?* option __only__ if you are using WordPr
 
 
 == Changelog ==
+
+= 4.2.0 =
+
+* Added YouTube plugin for video.js
+* Added option to select YouTube video source
 
 = 4.2.0 =
 
