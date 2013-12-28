@@ -112,8 +112,9 @@ Uncheck the *Use the [video] shortcode?* option __only__ if you are using WordPr
 
 == Changelog ==
 
-= 4.2.0 =
+= 4.3.0 =
 
+* Updated to use Video.js 4.3.
 * Added YouTube plugin for video.js
 * Added option to select YouTube video source
 
