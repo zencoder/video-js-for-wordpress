@@ -4,7 +4,7 @@ Donate link: http://videojs.com/
 Tags: html5, video, player, javascript
 Requires at least: 2.7
 Tested up to: 3.8
-Stable tag: 4.3.0
+Stable tag: 4.3.1
 
 Self-hosted responsive HTML5 video for WordPress, built on the widely used Video.js HTML5 video player. Embed video in your post or page using HTML5.
 
@@ -111,6 +111,10 @@ Uncheck the *Use the [video] shortcode?* option __only__ if you are using WordPr
 
 
 == Changelog ==
+
+= 4.3.1 =
+
+* Fixed a bug with YouTube videos
 
 = 4.3.0 =
 

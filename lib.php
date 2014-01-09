@@ -1,5 +1,5 @@
 <?php
-function hex2RGB($hexStr, $returnAsString = false, $seperator = ',') {
+function vjs_hex2RGB($hexStr, $returnAsString = false, $seperator = ',') {
     $hexStr = preg_replace("/[^0-9A-Fa-f]/", '', $hexStr); // Gets a proper hex string
     $rgbArray = array();
     if (strlen($hexStr) == 6) { //If a proper hex code, convert using bitwise operation. No overhead... faster

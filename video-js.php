@@ -1,14 +1,14 @@
 <?php
 /**
  * @package Video.js
- * @version 4.3.0
+ * @version 4.3.1
  */
 /*
 Plugin Name: Video.js - HTML5 Video Player for WordPress
 Plugin URI: http://videojs.com/
 Description: Self-hosted responsive HTML5 video for WordPress, built on the widely used Video.js HTML5 video player library. Allows you to embed video in your post or page using HTML5 with Flash fallback support for non-HTML5 browsers.
 Author: <a href="http://www.nosecreekweb.ca">Dustin Lammiman</a>, <a href="http://steveheffernan.com">Steve Heffernan</a>
-Version: 4.3.0
+Version: 4.3.1
 */
 
 
@@ -66,7 +66,7 @@ function videojs_custom_colors() {
 	$options = get_option('videojs_options');
 	
 	if($options['videojs_color_one'] != "#ccc" || $options['videojs_color_two'] != "#66A8CC" || $options['videojs_color_three'] != "#000") { //If custom colors are used
-		$color3 = hex2RGB($options['videojs_color_three'], true); //Background color is rgba
+		$color3 = vjs_hex2RGB($options['videojs_color_three'], true); //Background color is rgba
 		echo "
 	<style type='text/css'>
 		.vjs-default-skin { color: " . $options['videojs_color_one'] . " }
