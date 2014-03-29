@@ -1,14 +1,14 @@
 <?php
 /**
  * @package Video.js
- * @version 4.3.1
+ * @version 4.5.0
  */
 /*
 Plugin Name: Video.js - HTML5 Video Player for WordPress
 Plugin URI: http://videojs.com/
 Description: Self-hosted responsive HTML5 video for WordPress, built on the widely used Video.js HTML5 video player library. Allows you to embed video in your post or page using HTML5 with Flash fallback support for non-HTML5 browsers.
 Author: <a href="http://www.nosecreekweb.ca">Dustin Lammiman</a>, <a href="http://steveheffernan.com">Steve Heffernan</a>
-Version: 4.3.1
+Version: 4.5.0
 */
 
 
@@ -23,42 +23,33 @@ include_once($plugin_dir . 'admin.php');
 include_once($plugin_dir . 'lib.php');
 
 
-/* Include the script and css file in the page <head> */
-function add_videojs_header(){
+/* Register the scripts and enqueue css files */
+function register_videojs(){
+	$options = get_option('videojs_options');
 	
-	global $post;
-	if( !function_exists('has_shortcode') || has_shortcode( $post->post_content, 'videojs') || has_shortcode( $post->post_content, 'video')) {
+	wp_register_style( 'videojs-plugin', plugins_url( 'plugin-styles.css' , __FILE__ ) );
+	wp_enqueue_style( 'videojs-plugin' );
 	
-		$options = get_option('videojs_options');
-		
-		wp_register_style( 'videojs-plugin', plugins_url( 'plugin-styles.css' , __FILE__ ) );
-		wp_enqueue_style( 'videojs-plugin' );
-		
-		if($options['videojs_cdn'] == 'on') { //use the cdn hosted version
-			wp_register_script( 'videojs', 'http://vjs.zencdn.net/4.4/video.js' );
-			wp_enqueue_script( 'videojs' );
-			
-			wp_register_style( 'videojs', 'http://vjs.zencdn.net/4.4/video-js.css' );
-			wp_enqueue_style( 'videojs' );
-		} else { //use the self hosted version
-			wp_register_script( 'videojs', plugins_url( 'videojs/video.js' , __FILE__ ) );
-			wp_enqueue_script( 'videojs' );
-			
-			wp_register_style( 'videojs', plugins_url( 'videojs/video-js.css' , __FILE__ ) );
-			wp_enqueue_style( 'videojs' );
-		}
-		
-		if($options['videojs_responsive'] == 'on') { //include the responsive stylesheet
-			wp_register_style( 'responsive-videojs', plugins_url('responsive-video.css', __FILE__) );
-			wp_enqueue_style( 'responsive-videojs' );
-		}
-		
-		// adding youtube plugin
-		wp_register_script( 'videojs-youtube', plugins_url( 'videojs/vjs.youtube.js' , __FILE__ ) );
-		wp_enqueue_script( 'videojs-youtube' );
+	if($options['videojs_cdn'] == 'on') { //use the cdn hosted version
+		wp_register_script( 'videojs', 'http://vjs.zencdn.net/4.5/video.js' );
+		wp_register_style( 'videojs', 'http://vjs.zencdn.net/4.5/video-js.css' );
+		wp_enqueue_style( 'videojs' );
+	} else { //use the self hosted version
+		wp_register_script( 'videojs', plugins_url( 'videojs/video.js' , __FILE__ ) );
+		wp_register_style( 'videojs', plugins_url( 'videojs/video-js.css' , __FILE__ ) );
+		wp_enqueue_style( 'videojs' );
 	}
+	
+	wp_register_script( 'videojs-youtube', plugins_url( 'videojs/vjs.youtube.js' , __FILE__ ) );
 }
-add_action( 'wp_enqueue_scripts', 'add_videojs_header' );
+add_action( 'wp_enqueue_scripts', 'register_videojs' );
+
+
+/* Include the scripts before </body> */
+function add_videojs_header(){
+	wp_enqueue_script( 'videojs' );
+	wp_enqueue_script( 'videojs-youtube' );
+}
 
 
 /* Include custom color styles in the site header */
@@ -89,7 +80,12 @@ function add_videojs_swf(){
 			if(typeof videojs != "undefined") {
 				videojs.options.flash.swf = "'. plugins_url( 'videojs/video-js.swf' , __FILE__ ) .'";
 			}
+			document.createElement("video");document.createElement("audio");document.createElement("track");
 		</script>
+		';
+	} else {
+		echo '
+		<script type="text/javascript"> document.createElement("video");document.createElement("audio");document.createElement("track"); </script>
 		';
 	}
 }
@@ -98,6 +94,7 @@ add_action('wp_head','add_videojs_swf');
 
 /* The [video] or [videojs] shortcode */
 function video_shortcode($atts, $content=null){
+	add_videojs_header();
 	
 	$options = get_option('videojs_options'); //load the defaults
 	
@@ -114,7 +111,8 @@ function video_shortcode($atts, $content=null){
 		'loop' => '',
 		'controls' => '',
 		'id' => '',
-		'class' => ''
+		'class' => '',
+		'muted' => ''
 	), $atts));
 
 	$dataSetup = array();
@@ -142,6 +140,7 @@ function video_shortcode($atts, $content=null){
 		$ogg_source = '';
 		
 	if ($youtube) {
+		$dataSetup['forceSSL'] = 'true';
 		$dataSetup['techOrder'] = array("youtube");
 		$dataSetup['src'] = $youtube;
 	}
@@ -181,19 +180,25 @@ function video_shortcode($atts, $content=null){
 	if ($class)
 		$class = ' ' . $class;
 	
+	// Muted?
+	if ($muted == "true")
+		$muted_attribute = " muted";
+	else
+		$muted_attribute = "";
+	
 	// Tracks
 	if(!is_null( $content ))
 		$track = do_shortcode($content);
 	else
 		$track = "";
 
-	$jsonDataSetup = json_encode($dataSetup);
+	$jsonDataSetup = str_replace('\\/', '/', json_encode($dataSetup));
 
 	//Output the <video> tag
 	$videojs = <<<_end_
 
 	<!-- Begin Video.js -->
-	<video id="{$id}" class="video-js vjs-default-skin{$class}" width="{$width}" height="{$height}"{$poster_attribute}{$controls_attribute}{$preload_attribute}{$autoplay_attribute}{$loop_attribute} data-setup='{$jsonDataSetup}'>
+	<video id="{$id}" class="video-js vjs-default-skin{$class}" width="{$width}" height="{$height}"{$poster_attribute}{$controls_attribute}{$preload_attribute}{$autoplay_attribute}{$loop_attribute}{$muted_attribute} data-setup='{$jsonDataSetup}'>
 		{$mp4_source}
 		{$webm_source}
 		{$ogg_source}{$track}

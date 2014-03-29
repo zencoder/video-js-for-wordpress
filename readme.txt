@@ -4,7 +4,7 @@ Donate link: http://videojs.com/
 Tags: html5, video, player, javascript
 Requires at least: 2.7
 Tested up to: 3.8
-Stable tag: 4.4.1
+Stable tag: 4.5.0
 
 Self-hosted responsive HTML5 video for WordPress, built on the widely used Video.js HTML5 video player. Embed video in your post or page using HTML5.
 
@@ -80,7 +80,12 @@ Causes the video to start over as soon as it ends. Use 'true' or 'false'.
 Use 'false' to hide the player controls.
 
     [videojs controls="false"]
-    
+
+### muted
+Use 'true' to initially mute video.
+
+    [videojs muted="true"]
+        
 ### id
 Add a custom ID to your video player.
 
@@ -98,7 +103,7 @@ Text Tracks are a function of HTML5 video for providing time triggered text to t
 
 ### All Attributes Example
 
-    [videojs mp4="http://video-js.zencoder.com/oceans-clip.mp4" ogg="http://video-js.zencoder.com/oceans-clip.ogg" webm="http://video-js.zencoder.com/oceans-clip.webm" poster="http://video-js.zencoder.com/oceans-clip.png" preload="auto" autoplay="true" width="640" height="264" id="movie-id" class="alignleft" controls="false"][track kind="captions" src="http://example.com/path/to/captions.vtt" srclang="en" label="English" default="true"][/videojs]
+    [videojs mp4="http://video-js.zencoder.com/oceans-clip.mp4" ogg="http://video-js.zencoder.com/oceans-clip.ogg" webm="http://video-js.zencoder.com/oceans-clip.webm" poster="http://video-js.zencoder.com/oceans-clip.png" preload="auto" autoplay="true" width="640" height="264" id="movie-id" class="alignleft" controls="false" muted="true"][track kind="captions" src="http://example.com/path/to/captions.vtt" srclang="en" label="English" default="true"][/videojs]
     
 
 ##Video.js Settings Screen
@@ -112,9 +117,12 @@ Uncheck the *Use the [video] shortcode?* option __only__ if you are using WordPr
 
 == Changelog ==
 
-= 4.4.1 =
+= 4.5.0 =
 
-* Updated to use Video.js 4.4
+* Updated to use Video.js 4.5
+* Various fixes for YouTube videos
+* Changed the way js/css is loaded to allow use of do_shortcode()
+* Added Muted option
 
 = 4.3.1 =
 
