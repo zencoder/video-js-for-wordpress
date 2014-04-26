@@ -31,8 +31,8 @@ function register_videojs(){
 	wp_enqueue_style( 'videojs-plugin' );
 	
 	if($options['videojs_cdn'] == 'on') { //use the cdn hosted version
-		wp_register_script( 'videojs', 'http://vjs.zencdn.net/4.5/video.js' );
-		wp_register_style( 'videojs', 'http://vjs.zencdn.net/4.5/video-js.css' );
+		wp_register_script( 'videojs', '//vjs.zencdn.net/4.5/video.js' );
+		wp_register_style( 'videojs', '//vjs.zencdn.net/4.5/video-js.css' );
 		wp_enqueue_style( 'videojs' );
 	} else { //use the self hosted version
 		wp_register_script( 'videojs', plugins_url( 'videojs/video.js' , __FILE__ ) );

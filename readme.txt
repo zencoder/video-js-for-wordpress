@@ -3,7 +3,7 @@ Contributors: nosecreek, Steve Heffernan, schnere
 Donate link: http://ncrk.ca/videojs
 Tags: html5, video, player, javascript
 Requires at least: 2.7
-Tested up to: 3.8
+Tested up to: 3.9
 Stable tag: 4.5.0
 License: LGPLv3
 License URI: http://www.gnu.org/licenses/lgpl-3.0.html
