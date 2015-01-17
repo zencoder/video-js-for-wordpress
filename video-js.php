@@ -100,6 +100,7 @@ function video_shortcode($atts, $content=null){
 	
 	extract(shortcode_atts(array(
 		'mp4' => '',
+		'rtmp' => '',
 		'webm' => '',
 		'ogg' => '',
 		'youtube' => '',
@@ -126,6 +127,12 @@ function video_shortcode($atts, $content=null){
 		$mp4_source = '<source src="'.$mp4.'" type=\'video/mp4\' />';
 	else
 		$mp4_source = '';
+		
+	// RTMP Source Supplied
+	if ($rtmp)
+		$rtmp_source = '<source src="'.$rtmp.'" type=\'rtmp/mp4\' />';
+	else
+		$rtmp_source = '';
 
 	// WebM Source Supplied
 	if ($webm)
@@ -199,6 +206,7 @@ function video_shortcode($atts, $content=null){
 
 	<!-- Begin Video.js -->
 	<video id="{$id}" class="video-js vjs-default-skin{$class}" width="{$width}" height="{$height}"{$poster_attribute}{$controls_attribute}{$preload_attribute}{$autoplay_attribute}{$loop_attribute}{$muted_attribute} data-setup='{$jsonDataSetup}'>
+		{$rtmp_source}
 		{$mp4_source}
 		{$webm_source}
 		{$ogg_source}{$track}
