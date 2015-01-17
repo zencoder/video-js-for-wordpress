@@ -49,6 +49,11 @@
 		var form = jQuery('<div id="videoJSpopup">\
 		<table id="videoJStable" class="form-table">\
 			<tr>\
+				<th><label for="videojs-rtmp">RTMP Stream</label></th>\
+				<td><input type="text" name="videojs-rtmp" id="videojs-rtmp"><br>\
+				<small>The location of the h.264/MP4 stream for the video.</small></td>\
+			</tr>\
+			<tr>\
 				<th><label for="videojs-mp4">MP4 Source</label></th>\
 				<td><input type="text" name="videojs-mp4" id="videojs-mp4"><br>\
 				<small>The location of the h.264/MP4 source for the video.</small></td>\
@@ -125,6 +130,7 @@
 			//text options
 			var options = { 
 				'mp4'      : '',
+				'rtmp'     : '',
 				'webm'     : '',
 				'ogg'      : '',
 				'poster'   : '',
