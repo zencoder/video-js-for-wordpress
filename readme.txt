@@ -27,6 +27,22 @@ This section describes how to install the plugin and get it working.
 ##Video Shortcode Options
 -------------------------
 
+### rtmp
+The location of the h.264/MP4 source for the video.
+The connection and stream parts are determined by splitting the URL on the first ampersand (&) or the last slash (/).
+
+http://myurl.com/streaming&/is/fun -->
+  connection: http://myurl.com/streaming
+  stream: /is/fun
+
+-or-
+
+http://myurl.com/streaming/is/fun -->
+  connection: http://myurl.com/streaming/is
+  stream: fun
+  
+    [videojs rtmp="rtmp://cp67126.edgefcs.net/ondemand/&mp4:mediapm/ovp/content/test/video/spacealonehd_sounas_640_300.mp4"]
+
 ### mp4
 The location of the h.264/MP4 source for the video.
     
