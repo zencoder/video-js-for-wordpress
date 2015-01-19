@@ -1,5 +1,5 @@
 === Video.js - HTML5 Video Player for Wordpress ===
-Contributors: nosecreek, Steve Heffernan, schnere, XxMARSxX
+Contributors: nosecreek, Steve Heffernan, schnere, Stanislav Chernenko
 Donate link: http://ncrk.ca/videojs
 Tags: html5, video, player, javascript
 Requires at least: 2.7
