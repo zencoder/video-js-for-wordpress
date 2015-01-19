@@ -1,10 +1,10 @@
 === Video.js - HTML5 Video Player for Wordpress ===
-Contributors: nosecreek, Steve Heffernan, schnere
+Contributors: nosecreek, Steve Heffernan, schnere, XxMARSxX
 Donate link: http://ncrk.ca/videojs
 Tags: html5, video, player, javascript
 Requires at least: 2.7
-Tested up to: 3.9
-Stable tag: 4.5.0
+Tested up to: 4.1
+Stable tag: 4.11.3
 License: LGPLv3
 License URI: http://www.gnu.org/licenses/lgpl-3.0.html
 
@@ -121,7 +121,7 @@ Text Tracks are a function of HTML5 video for providing time triggered text to t
 
 ### All Attributes Example
 
-    [videojs mp4="http://video-js.zencoder.com/oceans-clip.mp4" ogg="http://video-js.zencoder.com/oceans-clip.ogg" webm="http://video-js.zencoder.com/oceans-clip.webm" poster="http://video-js.zencoder.com/oceans-clip.png" preload="auto" autoplay="true" width="640" height="264" id="movie-id" class="alignleft" controls="false" muted="true"][track kind="captions" src="http://example.com/path/to/captions.vtt" srclang="en" label="English" default="true"][/videojs]
+    [videojs rtmp="rtmp://cp67126.edgefcs.net/ondemand/&mp4:mediapm/ovp/content/test/video/spacealonehd_sounas_640_300.mp4" mp4="http://video-js.zencoder.com/oceans-clip.mp4" ogg="http://video-js.zencoder.com/oceans-clip.ogg" webm="http://video-js.zencoder.com/oceans-clip.webm" poster="http://video-js.zencoder.com/oceans-clip.png" preload="auto" autoplay="true" width="640" height="264" id="movie-id" class="alignleft" controls="false" muted="true"][track kind="captions" src="http://example.com/path/to/captions.vtt" srclang="en" label="English" default="true"][/videojs]
     
 
 ##Video.js Settings Screen
@@ -134,6 +134,12 @@ Uncheck the *Use the [video] shortcode?* option __only__ if you are using WordPr
 
 
 == Changelog ==
+
+= 4.11.3 =
+
+* Updated to use Video.js 4.11.3
+* Updated youtube tech to latest version (https://github.com/eXon/videojs-youtube)
+* Force flash if RTMP using
 
 = 4.5.0 =
 
