@@ -133,6 +133,7 @@
 				'rtmp'     : '',
 				'webm'     : '',
 				'ogg'      : '',
+				'youtube'  : '',
 				'poster'   : '',
 				'width'    : '',
 				'height'   : '',
