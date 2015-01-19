@@ -140,6 +140,7 @@ Uncheck the *Use the [video] shortcode?* option __only__ if you are using WordPr
 * Updated to use Video.js 4.11.3
 * Updated youtube tech to latest version (https://github.com/eXon/videojs-youtube)
 * Change tech order if RTMP used to ['flash', 'html5'], defaults is ['html5','flash']
+* Fixed tinymce button (shortcode for youtube have added later without src)
 
 = 4.5.0 =
 
