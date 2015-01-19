@@ -139,7 +139,7 @@ Uncheck the *Use the [video] shortcode?* option __only__ if you are using WordPr
 
 * Updated to use Video.js 4.11.3
 * Updated youtube tech to latest version (https://github.com/eXon/videojs-youtube)
-* Force flash if RTMP using
+* Change tech order if RTMP used to ['flash', 'html5'], defaults is ['html5','flash']
 
 = 4.5.0 =
 
