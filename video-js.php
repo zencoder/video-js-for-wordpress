@@ -1,14 +1,14 @@
 <?php
 /**
  * @package Video.js
- * @version 4.5.0
+ * @version 4.11.3
  */
 /*
 Plugin Name: Video.js - HTML5 Video Player for WordPress
 Plugin URI: http://videojs.com/
 Description: Self-hosted responsive HTML5 video for WordPress, built on the widely used Video.js HTML5 video player library. Allows you to embed video in your post or page using HTML5 with Flash fallback support for non-HTML5 browsers.
 Author: <a href="http://www.nosecreekweb.ca">Dustin Lammiman</a>, <a href="http://steveheffernan.com">Steve Heffernan</a>
-Version: 4.5.0
+Version: 4.11.3
 */
 
 
@@ -31,8 +31,8 @@ function register_videojs(){
 	wp_enqueue_style( 'videojs-plugin' );
 	
 	if($options['videojs_cdn'] == 'on') { //use the cdn hosted version
-		wp_register_script( 'videojs', '//vjs.zencdn.net/4.5/video.js' );
-		wp_register_style( 'videojs', '//vjs.zencdn.net/4.5/video-js.css' );
+		wp_register_script( 'videojs', '//vjs.zencdn.net/4.11.3/video.js' );
+		wp_register_style( 'videojs', '//vjs.zencdn.net/4.11.3/video-js.css' );
 		wp_enqueue_style( 'videojs' );
 	} else { //use the self hosted version
 		wp_register_script( 'videojs', plugins_url( 'videojs/video.js' , __FILE__ ) );
@@ -70,28 +70,6 @@ function videojs_custom_colors() {
 }
 add_action( 'wp_head', 'videojs_custom_colors' );
 
-
-/* Prevent mixed content warnings for the self-hosted version */
-function add_videojs_swf(){
-	$options = get_option('videojs_options');
-	if($options['videojs_cdn'] != 'on') {
-		echo '
-		<script type="text/javascript">
-			if(typeof videojs != "undefined") {
-				videojs.options.flash.swf = "'. plugins_url( 'videojs/video-js.swf' , __FILE__ ) .'";
-			}
-			document.createElement("video");document.createElement("audio");document.createElement("track");
-		</script>
-		';
-	} else {
-		echo '
-		<script type="text/javascript"> document.createElement("video");document.createElement("audio");document.createElement("track"); </script>
-		';
-	}
-}
-add_action('wp_head','add_videojs_swf');
-
-
 /* The [video] or [videojs] shortcode */
 function video_shortcode($atts, $content=null){
 	add_videojs_header();
@@ -100,6 +78,7 @@ function video_shortcode($atts, $content=null){
 	
 	extract(shortcode_atts(array(
 		'mp4' => '',
+		'rtmp' => '',
 		'webm' => '',
 		'ogg' => '',
 		'youtube' => '',
@@ -117,6 +96,11 @@ function video_shortcode($atts, $content=null){
 
 	$dataSetup = array();
 	
+	// Use self hosted version of swf
+	if($options['videojs_cdn'] != 'on') {
+		$dataSetup['flash']['swf'] = plugins_url( 'videojs/video-js.swf' , __FILE__ );
+	}
+	
 	// ID is required for multiple videos to work
 	if ($id == '')
 		$id = 'example_video_id_'.rand();
@@ -126,6 +110,14 @@ function video_shortcode($atts, $content=null){
 		$mp4_source = '<source src="'.$mp4.'" type=\'video/mp4\' />';
 	else
 		$mp4_source = '';
+		
+	// RTMP Stream Supplied
+	if ($rtmp) {
+		$rtmp_source = '<source src="'.$rtmp.'" type=\'rtmp/mp4\' />';
+		$dataSetup['techOrder'] = array('flash', 'html5');
+	}
+	else
+		$rtmp_source = '';
 
 	// WebM Source Supplied
 	if ($webm)
@@ -141,7 +133,7 @@ function video_shortcode($atts, $content=null){
 		
 	if ($youtube) {
 		$dataSetup['forceSSL'] = 'true';
-		$dataSetup['techOrder'] = array("youtube");
+		$dataSetup['techOrder'] = array('youtube');
 		$dataSetup['src'] = $youtube;
 	}
 	// Poster image supplied
@@ -199,6 +191,7 @@ function video_shortcode($atts, $content=null){
 
 	<!-- Begin Video.js -->
 	<video id="{$id}" class="video-js vjs-default-skin{$class}" width="{$width}" height="{$height}"{$poster_attribute}{$controls_attribute}{$preload_attribute}{$autoplay_attribute}{$loop_attribute}{$muted_attribute} data-setup='{$jsonDataSetup}'>
+		{$rtmp_source}
 		{$mp4_source}
 		{$webm_source}
 		{$ogg_source}{$track}

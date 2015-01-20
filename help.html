@@ -1,5 +1,22 @@
 <p>Use the <strong>Insert HTML5 Video</strong> button in the WordPress editor or use the [videojs] shortcode in your post or page using the following options:</p>
 
+<h3>rtmp</h3>
+
+<p>The location of the h.264/MP4 source for the video.</p>
+<p>The connection and stream parts are determined by splitting the URL on the first ampersand (&) or the last slash (/).</p>
+<p>http://myurl.com/streaming&/is/fun --><br />
+  connection: http://myurl.com/streaming<br />
+  stream: /is/fun<br />
+<br />
+-or-<br />
+<br />
+http://myurl.com/streaming/is/fun --><br />
+  connection: http://myurl.com/streaming/is<br />
+  stream: fun</p>
+
+<pre><code>[videojs rtmp="rtmp://video-js.zencoder.com/oceans-clip.mp4"]
+</code></pre>
+
 <h3>mp4</h3>
 
 <p>The location of the h.264/MP4 source for the video.</p>
