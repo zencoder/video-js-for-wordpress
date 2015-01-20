@@ -70,21 +70,6 @@ function videojs_custom_colors() {
 }
 add_action( 'wp_head', 'videojs_custom_colors' );
 
-
-/* Prevent mixed content warnings for the self-hosted version */
-function add_videojs_swf(){
-	$options = get_option('videojs_options');
-	if($options['videojs_cdn'] != 'on') {
-		echo '
-		<script type="text/javascript">
-				videojs.options.flash.swf = "'. plugins_url( 'videojs/video-js.swf' , __FILE__ ) .'";
-		</script>
-		';
-	}
-}
-add_action('wp_head','add_videojs_swf');
-
-
 /* The [video] or [videojs] shortcode */
 function video_shortcode($atts, $content=null){
 	add_videojs_header();
@@ -110,6 +95,11 @@ function video_shortcode($atts, $content=null){
 	), $atts));
 
 	$dataSetup = array();
+	
+	// Use self hosted version of swf
+	if($options['videojs_cdn'] != 'on') {
+		$dataSetup['flash']['swf'] = plugins_url( 'videojs/video-js.swf' , __FILE__ );
+	}
 	
 	// ID is required for multiple videos to work
 	if ($id == '')
