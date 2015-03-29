@@ -74,6 +74,8 @@ function register_videojs_settings() {
 	add_settings_field('videojs_video_shortcode', 'Use the [video] shortcode?', 'video_shortcode_output', 'videojs-settings', 'videojs_defaults');
 	
 	add_settings_field('videojs_reset', 'Restore defaults upon plugin deactivation/reactivation', 'reset_output', 'videojs-settings', 'videojs_defaults');
+/* New Plugins Settings */
+    add_settings_field('videojs_resolution', 'Enable video resolution selection? (uses videojs-resolution)', 'resolution_output', 'videojs-settings', 'videojs_defaults');
 }
 
 /* Validate our inputs */
@@ -90,6 +92,7 @@ function videojs_options_validate($input) {
 	$newinput['videojs_color_three'] = $input['videojs_color_three'];
 	$newinput['videojs_reset'] = $input['videojs_reset'];
 	$newinput['videojs_video_shortcode'] = $input['videojs_video_shortcode'];
+    $newinput['videojs_resolution'] = $input['videojs_resolution'];
 	
 	if(!preg_match("/^\d+$/", trim($newinput['videojs_width']))) {
 		 $newinput['videojs_width'] = '';
@@ -181,6 +184,13 @@ function reset_output() {
 	$options = get_option('videojs_options');
 	if($options['videojs_reset']) { $checked = ' checked="checked" '; } else { $checked = ''; }
 	echo "<input ".$checked." id='videojs_reset' name='videojs_options[videojs_reset]' type='checkbox' />";
+}
+/* Plugins for videojs */
+
+function resolution_output() {
+	$options = get_option('videojs_options');
+	if($options['resolution_output']) { $checked = ' checked="checked" '; } else { $checked = ''; }
+	echo "<input ".$checked." id='resolution_output' name='videojs_options[resolution_output]' type='checkbox' />";
 }
 
 

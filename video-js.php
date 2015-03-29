@@ -4,7 +4,7 @@
  * @version 4.5.0
  */
 /*
-Plugin Name: Video.js - HTML5 Video Player for WordPress
+Plugin Name: Video.js+ - HTML5 Video Player for WordPress + Plugins
 Plugin URI: http://videojs.com/
 Description: Self-hosted responsive HTML5 video for WordPress, built on the widely used Video.js HTML5 video player library. Allows you to embed video in your post or page using HTML5 with Flash fallback support for non-HTML5 browsers.
 Author: <a href="http://www.nosecreekweb.ca">Dustin Lammiman</a>, <a href="http://steveheffernan.com">Steve Heffernan</a>
@@ -35,12 +35,19 @@ function register_videojs(){
 		wp_register_style( 'videojs', '//vjs.zencdn.net/4.5/video-js.css' );
 		wp_enqueue_style( 'videojs' );
 	} else { //use the self hosted version
-		wp_register_script( 'videojs', plugins_url( 'videojs/video.js' , __FILE__ ) );
+		wp_register_script( 'videojs', plugins_url( 'videojs/video.dev.js' , __FILE__ ) );
 		wp_register_style( 'videojs', plugins_url( 'videojs/video-js.css' , __FILE__ ) );
 		wp_enqueue_style( 'videojs' );
 	}
 	
 	wp_register_script( 'videojs-youtube', plugins_url( 'videojs/vjs.youtube.js' , __FILE__ ) );
+    if($options['videojs_resolution'] == 'on') { //add needed files for selecting video resolution
+        wp_register_script( 'videojs-resolution', plugins_url( 'videojs/video-quality-selector.js' , __FILE__ ) );
+        wp_register_style( 'videojs-resolution', plugins_url( 'videojs/button-styles.css' , __FILE__ ) );
+        wp_enqueue_style( 'videojs' );
+    }else{
+        wp_register_script( 'videojs-resolution', '');
+    }
 }
 add_action( 'wp_enqueue_scripts', 'register_videojs' );
 
@@ -49,6 +56,7 @@ add_action( 'wp_enqueue_scripts', 'register_videojs' );
 function add_videojs_header(){
 	wp_enqueue_script( 'videojs' );
 	wp_enqueue_script( 'videojs-youtube' );
+	wp_enqueue_script( 'videojs-resolution' );
 }
 
 
@@ -100,6 +108,7 @@ function video_shortcode($atts, $content=null){
 	
 	extract(shortcode_atts(array(
 		'mp4' => '',
+        'mp42' => '',
 		'webm' => '',
 		'ogg' => '',
 		'youtube' => '',
@@ -112,7 +121,10 @@ function video_shortcode($atts, $content=null){
 		'controls' => '',
 		'id' => '',
 		'class' => '',
-		'muted' => ''
+		'muted' => '',
+		'data-res' => '',
+		'data-res2' => '',
+        'data-res3' => ''
 	), $atts));
 
 	$dataSetup = array();
@@ -123,9 +135,19 @@ function video_shortcode($atts, $content=null){
 
 	// MP4 Source Supplied
 	if ($mp4)
-		$mp4_source = '<source src="'.$mp4.'" type=\'video/mp4\' />';
+		$mp4_source = '<source src="'.$mp4.'" type=\'video/mp4\' data-res="'.$data-res.'" />';
+		if ($mp42)
+			$mp4_source2 = '<source src="'.$mp42.'" type=\'video/mp4\' data-res="'.$data-res2.'" />';
+        else
+            $mp4_source2 = '';
+        if ($mp43)
+            $mp4_source3 = '<source src="'.$mp43.'" type=\'video/mp4\' data-res="'.$data-res3.'" />';
+        else
+            $mp4_source3 = '';
 	else
 		$mp4_source = '';
+		$mp4_source2 = '';
+        $mp4_source3 = '';
 
 	// WebM Source Supplied
 	if ($webm)
@@ -200,6 +222,8 @@ function video_shortcode($atts, $content=null){
 	<!-- Begin Video.js -->
 	<video id="{$id}" class="video-js vjs-default-skin{$class}" width="{$width}" height="{$height}"{$poster_attribute}{$controls_attribute}{$preload_attribute}{$autoplay_attribute}{$loop_attribute}{$muted_attribute} data-setup='{$jsonDataSetup}'>
 		{$mp4_source}
+		{$mp4_source2}
+        {$mp4_source3}
 		{$webm_source}
 		{$ogg_source}{$track}
 	</video>
@@ -221,6 +245,48 @@ _end_;
 				{$videojs}
 			</div>
 		</div>
+		<!-- End Video.js Responsive Wrapper -->
+		
+_end_;
+	}
+    
+    if($options['videojs_resolution'] == 'on') { //add the resolution button
+		
+		$videojs = <<<_end_
+		
+		<!-- Begin Video.js Resolution Option -->
+		<script type="text/javascript">
+		
+		/*
+		The first video tag does not have a data-setup attribute, so we will initialize
+		video.js and our plugin here. This technique is well suited for videos that are loaded
+		dynamically.
+		
+		The second video tag includes a data-setup attribute and it will be initialized
+		automatically when video.js loads.
+		*/
+		
+		// Initialize video.js and activate the resolution selector plugin
+		videojs( '{$id}', { plugins : { resolutionSelector : {
+			
+			// Pass any options here
+			default_res : '480'
+		
+		// Define an on.ready function
+		} } }, function() {
+			
+			// "this" will be a reference to the player object
+			var player = this;
+			
+			// Listen for the changeRes event
+			player.on( 'changeRes', function() {
+				
+				// player.getCurrentRes() can be used to get the currently selected resolution
+				console.log( 'Current Res is: ' + player.getCurrentRes() );
+			});
+		});
+		
+	</script>
 		<!-- End Video.js Responsive Wrapper -->
 		
 _end_;
