@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Video.js | HTML5 Video Player</title>
+    <title>Video.js | HTML5 Video Player</title>
 
-  <!-- Chang URLs to wherever Video.js files will be hosted -->
-  <link href="video-js.css" rel="stylesheet" type="text/css">
-  <!-- video.js must be in the <head> for older IEs to work. -->
-  <script src="video.js"></script>
-
-  <!-- Unless using the CDN hosted version, update the URL to the Flash SWF -->
-  <script>
-    videojs.options.flash.swf = "video-js.swf";
-  </script>
+    <!-- Chang URLs to wherever Video.js files will be hosted -->
+    <link href="video-js.css" rel="stylesheet" type="text/css">
+    <link href="button-styles.css" rel="stylesheet" type="text/css">
+    <!-- video.js must be in the <head> for older IEs to work. -->
+    <script src="video.dev.js"></script>
+    <script src="video-quality-selector.js"></script>
+    <!-- Unless using the CDN hosted version, update the URL to the Flash SWF -->
+    <script>
+        videojs.options.flash.swf = "video-js.swf";
+    </script>
 
 
 </head>
+
 <body>
 
-  <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="640" height="264"
-      poster="http://video-js.zencoder.com/oceans-clip.png"
-      data-setup="{}">
-    <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4' />
-    <source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm' />
-    <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg' />
-    <track kind="captions" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
-    <track kind="subtitles" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
-  </video>
+    <video id="example" class="video-js vjs-default-skin" controls preload="none" width="550" height="360" data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "360" } } }'>
+        <source type='video/mp4' data-res='360' src='https://redirector.googlevideo.com/videoplayback?requiressl=yes&shardbypass=yes&cmbypass=yes&id=f02b1d5955efaeaf&itag=18&source=picasa&cmo=secure_transport%3Dyes&ip=0.0.0.0&ipbits=0&expire=1430171235&sparams=requiressl,shardbypass,cmbypass,id,itag,source,ip,ipbits,expire&signature=ADFB006D9256B9FB6B5EED0F062DE78AA93409A3.C9E96B1260CEDF126804AFCEA2C0DC9BD0A5FDEC&key=lh1'>
+            <source type='video/mp4' data-res='720' src='https://redirector.googlevideo.com/videoplayback?requiressl=yes&shardbypass=yes&cmbypass=yes&id=f02b1d5955efaeaf&itag=22&source=picasa&cmo=secure_transport%3Dyes&ip=0.0.0.0&ipbits=0&expire=1430171235&sparams=requiressl,shardbypass,cmbypass,id,itag,source,ip,ipbits,expire&signature=415AC9ED14B4D25B03F92FCB01530994CC33D95B.97575B8850C7ED2E9309C7B8ED95F637F254C4C2&key=lh1'>
+                <source type='video/mp4' data-res='1080' src='https://redirector.googlevideo.com/videoplayback?requiressl=yes&shardbypass=yes&cmbypass=yes&id=f02b1d5955efaeaf&itag=37&source=picasa&cmo=secure_transport%3Dyes&ip=0.0.0.0&ipbits=0&expire=1430171235&sparams=requiressl,shardbypass,cmbypass,id,itag,source,ip,ipbits,expire&signature=4F8FA497E741FDC8021D993C7012A63917EB7462.A9F4BA2C873770675454E767348ABD09DE29B702&key=lh1'>
+    </video>
 
 </body>
+
 </html>

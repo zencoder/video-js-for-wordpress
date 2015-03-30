@@ -1,7 +1,7 @@
 <?php
 /**
  * @package Video.js
- * @version 4.5.0
+ * @version 4.12.5
  */
 /*
 Plugin Name: Video.js+ - HTML5 Video Player for WordPress + Plugins
@@ -138,12 +138,8 @@ function video_shortcode($atts, $content=null){
 		$mp4_source = '<source src="'.$mp4.'" type=\'video/mp4\' data-res="'.$data-res.'" />';
 		if ($mp42)
 			$mp4_source2 = '<source src="'.$mp42.'" type=\'video/mp4\' data-res="'.$data-res2.'" />';
-        else
-            $mp4_source2 = '';
         if ($mp43)
             $mp4_source3 = '<source src="'.$mp43.'" type=\'video/mp4\' data-res="'.$data-res3.'" />';
-        else
-            $mp4_source3 = '';
 	else
 		$mp4_source = '';
 		$mp4_source2 = '';

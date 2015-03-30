@@ -189,8 +189,8 @@ function reset_output() {
 
 function resolution_output() {
 	$options = get_option('videojs_options');
-	if($options['resolution_output']) { $checked = ' checked="checked" '; } else { $checked = ''; }
-	echo "<input ".$checked." id='resolution_output' name='videojs_options[resolution_output]' type='checkbox' />";
+	if($options['videojs_resolution']) { $checked = ' checked="checked" '; } else { $checked = ''; }
+	echo "<input ".$checked." id='videojs_resolution' name='videojs_options[videojs_resolution]' type='checkbox' />";
 }
 
 
