@@ -1,10 +1,10 @@
 === Video.js - HTML5 Video Player for Wordpress ===
-Contributors: nosecreek, Steve Heffernan, schnere
+Contributors: nosecreek, Steve Heffernan, schnere, stopspazzing
 Donate link: http://ncrk.ca/videojs
 Tags: html5, video, player, javascript
 Requires at least: 2.7
-Tested up to: 3.9
-Stable tag: 4.5.0
+Tested up to: 4.2.2
+Stable tag: 4.6.0
 License: LGPLv3
 License URI: http://www.gnu.org/licenses/lgpl-3.0.html
 
@@ -107,6 +107,10 @@ Text Tracks are a function of HTML5 video for providing time triggered text to t
 
     [videojs mp4="http://video-js.zencoder.com/oceans-clip.mp4" ogg="http://video-js.zencoder.com/oceans-clip.ogg" webm="http://video-js.zencoder.com/oceans-clip.webm" poster="http://video-js.zencoder.com/oceans-clip.png" preload="auto" autoplay="true" width="640" height="264" id="movie-id" class="alignleft" controls="false" muted="true"][track kind="captions" src="http://example.com/path/to/captions.vtt" srclang="en" label="English" default="true"][/videojs]
     
+### Video Resolution Selector
+Allows you to use multiple video resolution sources, currently for mp4's only tho should work for anything.
+
+    [videojs mp4="http://video-js.zencoder.com/oceans-clip.mp4" mp42="http://video-js.zencoder.com/oceans-clip.mp4" mp43="http://video-js.zencoder.com/oceans-clip.mp4" data-res="360" data-res2="720" data-res3="1080"]
 
 ##Video.js Settings Screen
 --------------------------
@@ -118,6 +122,12 @@ Uncheck the *Use the [video] shortcode?* option __only__ if you are using WordPr
 
 
 == Changelog ==
+
+= 4.6.0 =
+
+* Updated to use Video.js 4.12.6
+* Added Video Resolution Selector plugin
+* Added option to force mobile custom controls
 
 = 4.5.0 =
 

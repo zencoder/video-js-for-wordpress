@@ -1,2 +1,5 @@
 
-.DS_Store
+*.DS_Store
+
+.brackets.json
+videojs/font/.DS_Store

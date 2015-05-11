@@ -30,9 +30,9 @@ function register_videojs(){
 	wp_register_style( 'videojs-plugin', plugins_url( 'plugin-styles.css' , __FILE__ ) );
 	wp_enqueue_style( 'videojs-plugin' );
 	
-	if($options['videojs_cdn'] == 'on') { //use the cdn hosted version
-		wp_register_script( 'videojs', '//vjs.zencdn.net/4.5/video.js' );
-		wp_register_style( 'videojs', '//vjs.zencdn.net/4.5/video-js.css' );
+	if($options['videojs_cdn'] == 'on') { //use the cdn hosted version v4.12.6
+		wp_register_script( 'videojs', '//vjs.zencdn.net/4.12.6/video.js' );
+		wp_register_style( 'videojs', '//vjs.zencdn.net/4.12.6/video-js.css' );
 		wp_enqueue_style( 'videojs' );
 	} else { //use the self hosted version
 		wp_register_script( 'videojs', plugins_url( 'videojs/video.dev.js' , __FILE__ ) );
@@ -140,7 +140,7 @@ function video_shortcode($atts, $content=null){
 	// MP4 Source Supplied
     if ($mp4) {
 		$mp4_source = '<source src="'.$mp4.'" type=\'video/mp4\' data-res="'.$data-res.'" />';
-        $dataSetup['resolutionSelector']['default_res'] = $data-res;
+        $dataSetup['plugins']['resolutionSelector']['default_res'] = $data-res;
         if ($mp42){
 			$mp4_source2 = '<source src="'.$mp42.'" type=\'video/mp4\' data-res="'.$data-res2.'" />';
             if ($mp43)
