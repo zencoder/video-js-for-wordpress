@@ -111,6 +111,7 @@ function video_shortcode($atts, $content=null){
 	
 	extract(shortcode_atts(array(
 		'mp4' => '',
+        'mp41' => '',
         'mp42' => '',
         'mp43' => '',
 		'webm' => '',
@@ -139,17 +140,22 @@ function video_shortcode($atts, $content=null){
 
 	// MP4 Source Supplied
     if ($mp4) {
-		$mp4_source = '<source src="'.$mp4.'" type=\'video/mp4\' data-res="'.$data-res.'" />';
-        $dataSetup['plugins']['resolutionSelector']['default_res'] = $data-res;
-        if ($mp42){
-			$mp4_source2 = '<source src="'.$mp42.'" type=\'video/mp4\' data-res="'.$data-res2.'" />';
-            if ($mp43)
-                $mp4_source3 = '<source src="'.$mp43.'" type=\'video/mp4\' data-res="'.$data-res3.'" />';
-        }
+		$mp4_source = '<source src="'.$mp4.'" type=\'video/mp4\' />';
     }else{
-		$mp4_source = '';
-		$mp4_source2 = '';
-        $mp4_source3 = '';
+        if ($mp41) {
+            $mp4_source1 = '<source src="'.$mp41.'" type=\'video/mp4\' data-res="'.$data-res.'" />';
+            $dataSetup['plugins']['resolutionSelector']['default_res'] = $data-res;
+            if ($mp42){
+			     $mp4_source2 = '<source src="'.$mp42.'" type=\'video/mp4\' data-res="'.$data-res2.'" />';
+                if ($mp43)
+                    $mp4_source3 = '<source src="'.$mp43.'" type=\'video/mp4\' data-res="'.$data-res3.'" />';
+            }
+            
+        }else{
+            $mp4_source1 = '';
+            $mp4_source2 = '';
+            $mp4_source3 = '';
+        }
     }
 	// WebM Source Supplied
 	if ($webm)
@@ -228,6 +234,7 @@ function video_shortcode($atts, $content=null){
 	<!-- Begin Video.js -->
 	<video id="{$id}" class="video-js vjs-default-skin{$class}" width="{$width}" height="{$height}"{$poster_attribute}{$controls_attribute}{$preload_attribute}{$autoplay_attribute}{$loop_attribute}{$muted_attribute} data-setup='{$jsonDataSetup}'>
 		{$mp4_source}
+        {$mp4_source1}
 		{$mp4_source2}
         {$mp4_source3}
 		{$webm_source}
