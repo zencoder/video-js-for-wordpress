@@ -1,14 +1,14 @@
 <?php
 /**
  * @package Video.js
- * @version 4.12.5
+ * @version 4.12.6
  */
 /*
 Plugin Name: Video.js+ - HTML5 Video Player for WordPress + Plugins
 Plugin URI: http://videojs.com/
 Description: Self-hosted responsive HTML5 video for WordPress, built on the widely used Video.js HTML5 video player library. Allows you to embed video in your post or page using HTML5 with Flash fallback support for non-HTML5 browsers.
 Author: <a href="http://www.nosecreekweb.ca">Dustin Lammiman</a>, <a href="http://steveheffernan.com">Steve Heffernan</a>
-Version: 4.5.0
+Version: 4.6.0
 */
 
 
@@ -35,7 +35,7 @@ function register_videojs(){
 		wp_register_style( 'videojs', '//vjs.zencdn.net/4.12.6/video-js.css' );
 		wp_enqueue_style( 'videojs' );
 	} else { //use the self hosted version
-		wp_register_script( 'videojs', plugins_url( 'videojs/video.dev.js' , __FILE__ ) );
+		wp_register_script( 'videojs', plugins_url( 'videojs/video.js' , __FILE__ ) );
 		wp_register_style( 'videojs', plugins_url( 'videojs/video-js.css' , __FILE__ ) );
 		wp_enqueue_style( 'videojs' );
 	}
@@ -44,22 +44,18 @@ function register_videojs(){
     if($options['videojs_resolution'] == 'on') { //add needed files for selecting video resolution
         wp_register_script( 'videojs-resolution', plugins_url( 'videojs/video-quality-selector.js' , __FILE__ ) );
         wp_register_style( 'videojs-resolution', plugins_url( 'videojs/button-styles.css' , __FILE__ ) );
-        wp_enqueue_style( 'videojs' );
-    }else{
-        wp_register_script( 'videojs-resolution', '');
-    }
+        wp_enqueue_style( 'videojs-resolution' );
+    }else
+        wp_enqueue_style( 'videojs-resolution' );
 }
 add_action( 'wp_enqueue_scripts', 'register_videojs' );
 
 
 /* Include the scripts before </body> */
 function add_videojs_header(){
-    $options = get_option('videojs_options');
 	wp_enqueue_script( 'videojs' );
 	wp_enqueue_script( 'videojs-youtube' );
-    if($options['videojs_resolution'] == 'on') { 
-        wp_enqueue_script( 'videojs-resolution' );
-    }
+    wp_enqueue_script( 'videojs-resolution' );
 }
 
 
@@ -127,9 +123,9 @@ function video_shortcode($atts, $content=null){
 		'id' => '',
 		'class' => '',
 		'muted' => '',
-		'data-res' => '',
-		'data-res2' => '',
-        'data-res3' => ''
+		'res1' => '',
+		'res2' => '',
+        'res3' => ''
 	), $atts));
 
 	$dataSetup = array();
@@ -143,12 +139,12 @@ function video_shortcode($atts, $content=null){
 		$mp4_source = '<source src="'.$mp4.'" type=\'video/mp4\' />';
     }else{
         if ($mp41) {
-            $mp4_source1 = '<source src="'.$mp41.'" type=\'video/mp4\' data-res="'.$data-res.'" />';
-            $dataSetup['plugins']['resolutionSelector']['default_res'] = $data-res;
+            $mp4_source1 = '<source src="'.$mp41.'" type=\'video/mp4\' data-res="'.$res1.'" />';
+            $dataSetup['plugins']['resolutionSelector']['default_res'] = $res1;
             if ($mp42){
-			     $mp4_source2 = '<source src="'.$mp42.'" type=\'video/mp4\' data-res="'.$data-res2.'" />';
+			     $mp4_source2 = '<source src="'.$mp42.'" type=\'video/mp4\' data-res="'.$res2.'" />';
                 if ($mp43)
-                    $mp4_source3 = '<source src="'.$mp43.'" type=\'video/mp4\' data-res="'.$data-res3.'" />';
+                    $mp4_source3 = '<source src="'.$mp43.'" type=\'video/mp4\' data-res="'.$res3.'" />';
             }
             
         }else{
@@ -223,7 +219,7 @@ function video_shortcode($atts, $content=null){
 		$track = "";
     
     //force mobile
-    if($forceMobile)
+    if($options['videojs_forceMobile'] == 'on')
         $dataSetup['customControlsOnMobile'] = 'true';
     
 	$jsonDataSetup = str_replace('\\/', '/', json_encode($dataSetup));

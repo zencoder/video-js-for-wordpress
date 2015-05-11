@@ -108,9 +108,9 @@ Text Tracks are a function of HTML5 video for providing time triggered text to t
     [videojs mp4="http://video-js.zencoder.com/oceans-clip.mp4" ogg="http://video-js.zencoder.com/oceans-clip.ogg" webm="http://video-js.zencoder.com/oceans-clip.webm" poster="http://video-js.zencoder.com/oceans-clip.png" preload="auto" autoplay="true" width="640" height="264" id="movie-id" class="alignleft" controls="false" muted="true"][track kind="captions" src="http://example.com/path/to/captions.vtt" srclang="en" label="English" default="true"][/videojs]
     
 ### Video Resolution Selector
-Allows you to use multiple video resolution sources, currently for mp4's only tho should work for anything.
+Allows you to use multiple video resolution sources, currently for mp4's only tho should work for anything. The first res will be the default. Make sure each mp4# matches res#
 
-    [videojs mp4="http://video-js.zencoder.com/oceans-clip.mp4" mp42="http://video-js.zencoder.com/oceans-clip.mp4" mp43="http://video-js.zencoder.com/oceans-clip.mp4" data-res="360" data-res2="720" data-res3="1080"]
+    [videojs mp41="http://video-js.zencoder.com/oceans-clip360p.mp4" mp42="http://video-js.zencoder.com/oceans-clip720p.mp4" mp43="http://video-js.zencoder.com/oceans-clip1080p.mp4" res1="360" res2="720" res3="1080"]
 
 ##Video.js Settings Screen
 --------------------------
