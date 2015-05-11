@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Video.js - HTML5 Video Player for Wordpress  
 Contributors: nosecreek, Steve Heffernan, schnere, stopspazzing  
 Donate link: http://ncrk.ca/videojs  
@@ -7,6 +8,18 @@ Tested up to: 4.2.2
 Stable tag: 4.6.0  
 License: LGPLv3  
 License URI: http://www.gnu.org/licenses/lgpl-3.0.html  
+=======
+== Video.js - HTML5 Video Player for Wordpress ==
+
+Contributors: nosecreek, Steve Heffernan, schnere, stopspazzing
+Donate link: http://ncrk.ca/videojs
+Tags: html5, video, player, javascript
+Requires at least: 2.7
+Tested up to: 4.2.2
+Stable tag: 4.6.0
+License: LGPLv3
+License URI: http://www.gnu.org/licenses/lgpl-3.0.html
+>>>>>>> origin/master
 
 Self-hosted responsive HTML5 video for WordPress, built on the widely used Video.js HTML5 video player. Embed video in your post or page using HTML5.
 
