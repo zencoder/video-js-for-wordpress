@@ -39,8 +39,8 @@ function register_videojs(){
 		wp_register_style( 'videojs', plugins_url( 'videojs/video-js.css' , __FILE__ ) );
 		wp_enqueue_style( 'videojs' );
 	}
-	
 	wp_register_script( 'videojs-youtube', plugins_url( 'videojs/vjs.youtube.js' , __FILE__ ) );
+    
     if($options['videojs_resolution'] == 'on') { //add needed files for selecting video resolution
         wp_register_script( 'videojs-resolution', plugins_url( 'videojs/video-quality-selector.js' , __FILE__ ) );
         wp_register_style( 'videojs-resolution', plugins_url( 'videojs/button-styles.css' , __FILE__ ) );
@@ -54,9 +54,12 @@ add_action( 'wp_enqueue_scripts', 'register_videojs' );
 
 /* Include the scripts before </body> */
 function add_videojs_header(){
+    $options = get_option('videojs_options');
 	wp_enqueue_script( 'videojs' );
 	wp_enqueue_script( 'videojs-youtube' );
-	wp_enqueue_script( 'videojs-resolution' );
+    if($options['videojs_resolution'] == 'on') { 
+        wp_enqueue_script( 'videojs-resolution' );
+    }
 }
 
 
@@ -109,6 +112,7 @@ function video_shortcode($atts, $content=null){
 	extract(shortcode_atts(array(
 		'mp4' => '',
         'mp42' => '',
+        'mp43' => '',
 		'webm' => '',
 		'ogg' => '',
 		'youtube' => '',
@@ -134,17 +138,19 @@ function video_shortcode($atts, $content=null){
 		$id = 'example_video_id_'.rand();
 
 	// MP4 Source Supplied
-	if ($mp4)
+    if ($mp4) {
 		$mp4_source = '<source src="'.$mp4.'" type=\'video/mp4\' data-res="'.$data-res.'" />';
-		if ($mp42)
+        $dataSetup['resolutionSelector']['default_res'] = $data-res;
+        if ($mp42){
 			$mp4_source2 = '<source src="'.$mp42.'" type=\'video/mp4\' data-res="'.$data-res2.'" />';
-        if ($mp43)
-            $mp4_source3 = '<source src="'.$mp43.'" type=\'video/mp4\' data-res="'.$data-res3.'" />';
-	else
+            if ($mp43)
+                $mp4_source3 = '<source src="'.$mp43.'" type=\'video/mp4\' data-res="'.$data-res3.'" />';
+        }
+    }else{
 		$mp4_source = '';
 		$mp4_source2 = '';
         $mp4_source3 = '';
-
+    }
 	// WebM Source Supplied
 	if ($webm)
 		$webm_source = '<source src="'.$webm.'" type=\'video/webm; codecs="vp8, vorbis"\' />';
@@ -209,7 +215,11 @@ function video_shortcode($atts, $content=null){
 		$track = do_shortcode($content);
 	else
 		$track = "";
-
+    
+    //force mobile
+    if($forceMobile)
+        $dataSetup['customControlsOnMobile'] = 'true';
+    
 	$jsonDataSetup = str_replace('\\/', '/', json_encode($dataSetup));
 
 	//Output the <video> tag
@@ -242,54 +252,9 @@ _end_;
 			</div>
 		</div>
 		<!-- End Video.js Responsive Wrapper -->
-		
 _end_;
 	}
-    
-    if($options['videojs_resolution'] == 'on') { //add the resolution button
-		
-		$videojs = <<<_end_
-		
-		<!-- Begin Video.js Resolution Option -->
-		<script type="text/javascript">
-		
-		/*
-		The first video tag does not have a data-setup attribute, so we will initialize
-		video.js and our plugin here. This technique is well suited for videos that are loaded
-		dynamically.
-		
-		The second video tag includes a data-setup attribute and it will be initialized
-		automatically when video.js loads.
-		*/
-		
-		// Initialize video.js and activate the resolution selector plugin
-		videojs( '{$id}', { plugins : { resolutionSelector : {
-			
-			// Pass any options here
-			default_res : '480'
-		
-		// Define an on.ready function
-		} } }, function() {
-			
-			// "this" will be a reference to the player object
-			var player = this;
-			
-			// Listen for the changeRes event
-			player.on( 'changeRes', function() {
-				
-				// player.getCurrentRes() can be used to get the currently selected resolution
-				console.log( 'Current Res is: ' + player.getCurrentRes() );
-			});
-		});
-		
-	</script>
-		<!-- End Video.js Responsive Wrapper -->
-		
-_end_;
-	}
-	
 	return $videojs;
-
 }
 add_shortcode('videojs', 'video_shortcode');
 //Only use the [video] shortcode if the correct option is set
@@ -297,7 +262,6 @@ $options = get_option('videojs_options');
 if( !array_key_exists('videojs_video_shortcode', $options) || $options['videojs_video_shortcode'] ){
 	add_shortcode('video', 'video_shortcode');
 }
-
 
 /* The [track] shortcode */
 function track_shortcode($atts, $content=null){

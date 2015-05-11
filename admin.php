@@ -76,6 +76,7 @@ function register_videojs_settings() {
 	add_settings_field('videojs_reset', 'Restore defaults upon plugin deactivation/reactivation', 'reset_output', 'videojs-settings', 'videojs_defaults');
 /* New Plugins Settings */
     add_settings_field('videojs_resolution', 'Enable video resolution selection? (uses videojs-resolution)', 'resolution_output', 'videojs-settings', 'videojs_defaults');
+    add_settings_field('videojs_forceMobile', 'Force mobile custom controls?', 'forceMobile_output', 'videojs-settings', 'videojs_defaults');
 }
 
 /* Validate our inputs */
@@ -92,8 +93,9 @@ function videojs_options_validate($input) {
 	$newinput['videojs_color_three'] = $input['videojs_color_three'];
 	$newinput['videojs_reset'] = $input['videojs_reset'];
 	$newinput['videojs_video_shortcode'] = $input['videojs_video_shortcode'];
+    // new plugin validations
     $newinput['videojs_resolution'] = $input['videojs_resolution'];
-	
+    $newinput['videojs_forceMobile'] = $input['videojs_forceMobile'];    
 	if(!preg_match("/^\d+$/", trim($newinput['videojs_width']))) {
 		 $newinput['videojs_width'] = '';
 	 }
@@ -192,7 +194,11 @@ function resolution_output() {
 	if($options['videojs_resolution']) { $checked = ' checked="checked" '; } else { $checked = ''; }
 	echo "<input ".$checked." id='videojs_resolution' name='videojs_options[videojs_resolution]' type='checkbox' />";
 }
-
+function forceMobile_output() {
+	$options = get_option('videojs_options');
+	if($options['videojs_forceMobile']) { $checked = ' checked="checked" '; } else { $checked = ''; }
+	echo "<input ".$checked." id='videojs_forceMobile' name='videojs_options[videojs_forceMobile]' type='checkbox' />";
+}
 
 /* Set Defaults */
 register_activation_hook(plugin_dir_path( __FILE__ ) . 'video-js.php', 'add_defaults_fn');
@@ -200,7 +206,7 @@ register_activation_hook(plugin_dir_path( __FILE__ ) . 'video-js.php', 'add_defa
 function add_defaults_fn() {
 	$tmp = get_option('videojs_options');
     if(($tmp['videojs_reset']=='on')||(!is_array($tmp))) {
-		$arr = array("videojs_height"=>"264","videojs_width"=>"640","videojs_preload"=>"","videojs_autoplay"=>"","videojs_responsive"=>"","videojs_cdn"=>"on","videojs_color_one"=>"#ccc","videojs_color_two"=>"#66A8CC","videojs_color_three"=>"#000","videojs_video_shortcode"=>"on","videojs_reset"=>"");
+		$arr = array("videojs_height"=>"264","videojs_width"=>"640","videojs_preload"=>"","videojs_autoplay"=>"","videojs_responsive"=>"","videojs_cdn"=>"on","videojs_color_one"=>"#ccc","videojs_color_two"=>"#66A8CC","videojs_color_three"=>"#000","videojs_video_shortcode"=>"on","videojs_reset"=>"","videojs_resolution"=>"","videojs_forceMobile"=>"");
 		update_option('videojs_options', $arr);
 		update_option("videojs_db_version", "1.0");
 	}
@@ -221,7 +227,6 @@ function update_videojs() {
 		$options['videojs_video_shortcode'] = "on";
 		
 		update_option('videojs_options', $options);
-		
 		update_option("videojs_db_version", $videojs_db_version); //Update the database version setting
 	}
 }
