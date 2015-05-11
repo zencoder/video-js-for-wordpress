@@ -123,6 +123,10 @@ Uncheck the *Use the [video] shortcode?* option __only__ if you are using WordPr
 
 == Changelog ==
 
+= 4.6.1 =
+
+* Simplified video output code and cleaned up unnecessary conditions.
+
 = 4.6.0 =
 
 * Updated to use Video.js 4.12.6

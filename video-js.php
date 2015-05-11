@@ -102,9 +102,9 @@ add_action('wp_head','add_videojs_swf');
 /* The [video] or [videojs] shortcode */
 function video_shortcode($atts, $content=null){
 	add_videojs_header();
-	
+	$video_source = '';
+    $attributes = '';
 	$options = get_option('videojs_options'); //load the defaults
-	
 	extract(shortcode_atts(array(
 		'mp4' => '',
         'mp41' => '',
@@ -136,34 +136,26 @@ function video_shortcode($atts, $content=null){
 
 	// MP4 Source Supplied
     if ($mp4) {
-		$mp4_source = '<source src="'.$mp4.'" type=\'video/mp4\' />';
+		$video_source .= '<source src="'.$mp4.'" type=\'video/mp4\' />';
     }else{
         if ($mp41) {
-            $mp4_source1 = '<source src="'.$mp41.'" type=\'video/mp4\' data-res="'.$res1.'" />';
+            $video_source .= '<source src="'.$mp41.'" type=\'video/mp4\' data-res="'.$res1.'" />';
             $dataSetup['plugins']['resolutionSelector']['default_res'] = $res1;
             if ($mp42){
-			     $mp4_source2 = '<source src="'.$mp42.'" type=\'video/mp4\' data-res="'.$res2.'" />';
-                if ($mp43)
-                    $mp4_source3 = '<source src="'.$mp43.'" type=\'video/mp4\' data-res="'.$res3.'" />';
+			     $video_source .= '<source src="'.$mp42.'" type=\'video/mp4\' data-res="'.$res2.'" />';
+                if ($mp43){
+                    $video_source .= '<source src="'.$mp43.'" type=\'video/mp4\' data-res="'.$res3.'" />';
+                }
             }
-            
-        }else{
-            $mp4_source1 = '';
-            $mp4_source2 = '';
-            $mp4_source3 = '';
         }
     }
 	// WebM Source Supplied
 	if ($webm)
-		$webm_source = '<source src="'.$webm.'" type=\'video/webm; codecs="vp8, vorbis"\' />';
-	else
-		$webm_source = '';
+		$video_source .= '<source src="'.$webm.'" type=\'video/webm; codecs="vp8, vorbis"\' />';
 
 	// Ogg source supplied
 	if ($ogg)
-		$ogg_source = '<source src="'.$ogg.'" type=\'video/ogg; codecs="theora, vorbis"\' />';
-	else
-		$ogg_source = '';
+		$video_source .= '<source src="'.$ogg.'" type=\'video/ogg; codecs="theora, vorbis"\' />';
 		
 	if ($youtube) {
 		$dataSetup['forceSSL'] = 'true';
@@ -172,9 +164,7 @@ function video_shortcode($atts, $content=null){
 	}
 	// Poster image supplied
 	if ($poster)
-		$poster_attribute = ' poster="'.$poster.'"';
-	else
-		$poster_attribute = '';
+		$attributes .= ' poster="'.$poster.'"';
 	
 	// Preload the video?
 	if ($preload == "auto" || $preload == "true" || $preload == "on")
@@ -186,31 +176,23 @@ function video_shortcode($atts, $content=null){
 
 	// Autoplay the video?
 	if ($autoplay == "true" || $autoplay == "on")
-		$autoplay_attribute = " autoplay";
-	else
-		$autoplay_attribute = "";
+		$attributes .= " autoplay";
 	
 	// Loop the video?
 	if ($loop == "true")
-		$loop_attribute = " loop";
-	else
-		$loop_attribute = "";
+		$attributes .= " loop";
 	
 	// Controls?
-	if ($controls == "false")
-		$controls_attribute = "";
-	else
-		$controls_attribute = " controls";
+	if ($controls == "true")
+		$attributes .= " controls";
 	
 	// Is there a custom class?
 	if ($class)
-		$class = ' ' . $class;
+		$class = $class;
 	
 	// Muted?
 	if ($muted == "true")
-		$muted_attribute = " muted";
-	else
-		$muted_attribute = "";
+		$attributes .= " muted";
 	
 	// Tracks
 	if(!is_null( $content ))
@@ -228,13 +210,8 @@ function video_shortcode($atts, $content=null){
 	$videojs = <<<_end_
 
 	<!-- Begin Video.js -->
-	<video id="{$id}" class="video-js vjs-default-skin{$class}" width="{$width}" height="{$height}"{$poster_attribute}{$controls_attribute}{$preload_attribute}{$autoplay_attribute}{$loop_attribute}{$muted_attribute} data-setup='{$jsonDataSetup}'>
-		{$mp4_source}
-        {$mp4_source1}
-		{$mp4_source2}
-        {$mp4_source3}
-		{$webm_source}
-		{$ogg_source}{$track}
+	<video id="{$id}" class="video-js vjs-default-skin {$class}" width="{$width}" height="{$height}"{$attributes}{$preload_attribute} data-setup='{$jsonDataSetup}'>
+		{$video_source}{$track}
 	</video>
 	<!-- End Video.js -->
 
@@ -301,7 +278,6 @@ function track_shortcode($atts, $content=null){
 }
 add_shortcode('track', 'track_shortcode');
 
-
 /* TinyMCE Shortcode Generator */
 function video_js_button() {
 	if ( ! current_user_can('edit_posts') && ! current_user_can('edit_pages') )
@@ -324,5 +300,4 @@ function video_js_mce_plugin($plugin_array) {
 	$plugin_array['videojs'] = plugins_url( 'mce-button.js' , __FILE__ );
 	return $plugin_array;
 }
-
 ?>
