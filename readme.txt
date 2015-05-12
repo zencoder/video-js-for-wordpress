@@ -4,7 +4,7 @@ Donate link: http://ncrk.ca/videojs
 Tags: html5, video, player, javascript  
 Requires at least: 2.7  
 Tested up to: 4.2.2  
-Stable tag: 4.6.0  
+Stable tag: 4.6.1  
 License: LGPLv3  
 License URI: http://www.gnu.org/licenses/lgpl-3.0.html  
 
@@ -46,6 +46,11 @@ The location of the VP8/WebM source for the video.
 The location of the YouTube source for the video.
 
     [videojs youtube="http://www.youtube.com/watch?v=DJU6ppZAaec"]
+
+### rtmp
+The location of the RTMP source for the video.
+
+    [videojs rtmp="rtmp://cp67126.edgefcs.net/ondemand/&mp4:mediapm/ovp/content/test/video/spacealonehd_sounas_640_300.mp4"]
 
 ### poster
 The location of the poster frame for the video.
