@@ -125,7 +125,9 @@ Uncheck the *Use the [video] shortcode?* option __only__ if you are using WordPr
 
 = 4.6.1 =
 
-* Simplified video output code and cleaned up unnecessary conditions.
+* Simplified video output code and cleaned up unnecessary conditions
+* Fixed Youtube bug in MCE that would prevent youtube url's from being added to the generated shorcode
+* Added RTMP video source option in MCE and shortcode
 
 = 4.6.0 =
 

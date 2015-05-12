@@ -125,7 +125,8 @@ function video_shortcode($atts, $content=null){
 		'muted' => '',
 		'res1' => '',
 		'res2' => '',
-        'res3' => ''
+        'res3' => '',
+        'rtmp' => ''
 	), $atts));
 
 	$dataSetup = array();
@@ -204,6 +205,12 @@ function video_shortcode($atts, $content=null){
     if($options['videojs_forceMobile'] == 'on')
         $dataSetup['customControlsOnMobile'] = 'true';
     
+    //RTMP
+    if($rtmp){
+        $video_source = '<source src="'.$rtmp.'" type=\'rtmp/mp4\'>';
+        $dataSetup['techOrder'] = array("flash");
+        $attributes .= " controls";
+    }
 	$jsonDataSetup = str_replace('\\/', '/', json_encode($dataSetup));
 
 	//Output the <video> tag

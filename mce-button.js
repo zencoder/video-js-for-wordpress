@@ -68,6 +68,11 @@
 				<td><input type="text" name="videojs-youtube" id="videojs-youtube"><br>\
 				<small>The location of the YouTube source for the video.</small></td>\
 			</tr>\
+            <tr>\
+				<th><label for="videojs-rtmp">RTMP Source</label></th>\
+				<td><input type="text" name="videojs-rtmp" id="videojs-rtmp"><br>\
+				<small>The location of the RTMP source for the video.</small></td>\
+			</tr>\
 			<tr>\
 				<th><label for="videojs-poster">Poster Image</label></th>\
 				<td><input type="text" name="videojs-poster" id="videojs-poster"><br>\
@@ -127,6 +132,8 @@
 				'mp4'      : '',
 				'webm'     : '',
 				'ogg'      : '',
+                'youtube'  : '',
+                'rtmp'     : '',
 				'poster'   : '',
 				'width'    : '',
 				'height'   : '',
