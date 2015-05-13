@@ -128,6 +128,11 @@ Uncheck the *Use the [video] shortcode?* option __only__ if you are using WordPr
 
 == Changelog ==
 
+= 4.6.2 =
+
+* Moving youtube.js to head fixes several issues with youtube player
+* Added watermark plugin with shortcode
+
 = 4.6.1 =
 
 * Simplified video output code and cleaned up unnecessary conditions

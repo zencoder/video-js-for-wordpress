@@ -28,36 +28,36 @@ function register_videojs(){
 	$options = get_option('videojs_options');
 	
 	wp_register_style( 'videojs-plugin', plugins_url( 'plugin-styles.css' , __FILE__ ) );
-	wp_enqueue_style( 'videojs-plugin' );
-	
+ 	wp_enqueue_style( 'videojs-plugin' );
+ 	
 	if($options['videojs_cdn'] == 'on') { //use the cdn hosted version v4.12.6
 		wp_register_script( 'videojs', '//vjs.zencdn.net/4.12.6/video.js' );
 		wp_register_style( 'videojs', '//vjs.zencdn.net/4.12.6/video-js.css' );
-		wp_enqueue_style( 'videojs' );
-	} else { //use the self hosted version
-		wp_register_script( 'videojs', plugins_url( 'videojs/video.js' , __FILE__ ) );
-		wp_register_style( 'videojs', plugins_url( 'videojs/video-js.css' , __FILE__ ) );
-		wp_enqueue_style( 'videojs' );
-	}
-	wp_register_script( 'videojs-youtube', plugins_url( 'videojs/vjs.youtube.js' , __FILE__ ) );
-    
+ 		wp_enqueue_style( 'videojs' );
+ 	} else { //use the self hosted version
+ 		wp_register_script( 'videojs', plugins_url( 'videojs/video.js' , __FILE__ ) );
+ 		wp_register_style( 'videojs', plugins_url( 'videojs/video-js.css' , __FILE__ ) );
+ 		wp_enqueue_style( 'videojs' );
+ 	}	
+ 	wp_register_script( 'videojs-youtube', plugins_url( 'videojs/vjs.youtube.js' , __FILE__ ) );
     if($options['videojs_resolution'] == 'on') { //add needed files for selecting video resolution
         wp_register_script( 'videojs-resolution', plugins_url( 'videojs/video-quality-selector.js' , __FILE__ ) );
         wp_register_style( 'videojs-resolution', plugins_url( 'videojs/button-styles.css' , __FILE__ ) );
         wp_enqueue_style( 'videojs-resolution' );
-    }else
-        wp_enqueue_style( 'videojs-resolution' );
+    }
+    wp_register_script( 'videojs-watermark', plugins_url( 'videojs/videojs.watermarka.js' , __FILE__ ) );
+    wp_register_style( 'videojs-watermark', plugins_url( 'videojs/videojs.watermark.css' , __FILE__ ) );
+ 	wp_enqueue_style( 'videojs-watermark' );
 }
 add_action( 'wp_enqueue_scripts', 'register_videojs' );
-
-
-/* Include the scripts before </body> */
+ 
 function add_videojs_header(){
-	wp_enqueue_script( 'videojs' );
-	wp_enqueue_script( 'videojs-youtube' );
+ 	wp_enqueue_script( 'videojs' );
+ 	wp_enqueue_script( 'videojs-youtube' );
     wp_enqueue_script( 'videojs-resolution' );
+    wp_enqueue_script( 'videojs-watermark' );
 }
-
+add_action('wp_head','add_videojs_header');
 
 /* Include custom color styles in the site header */
 function videojs_custom_colors() {
@@ -98,10 +98,9 @@ function add_videojs_swf(){
 }
 add_action('wp_head','add_videojs_swf');
 
-
 /* The [video] or [videojs] shortcode */
 function video_shortcode($atts, $content=null){
-	add_videojs_header();
+	//add_videojs_header();
 	$video_source = '';
     $attributes = '';
 	$options = get_option('videojs_options'); //load the defaults
@@ -126,7 +125,12 @@ function video_shortcode($atts, $content=null){
 		'res1' => '',
 		'res2' => '',
         'res3' => '',
-        'rtmp' => ''
+        'rtmp' => '',
+        'watermark' => '',
+        'wmxpos' => '',
+        'wmypos' => '',
+        'wmxrepeat' => '',
+        'wmopacity' => ''
 	), $atts));
 
 	$dataSetup = array();
@@ -196,11 +200,10 @@ function video_shortcode($atts, $content=null){
 		$attributes .= " muted";
 	
 	// Tracks
+    $track = "";
 	if(!is_null( $content ))
 		$track = do_shortcode($content);
-	else
-		$track = "";
-    
+
     //force mobile
     if($options['videojs_forceMobile'] == 'on')
         $dataSetup['customControlsOnMobile'] = 'true';
@@ -211,13 +214,25 @@ function video_shortcode($atts, $content=null){
         $dataSetup['techOrder'] = array("flash");
         $attributes .= " controls";
     }
+    //Watermark
+    if($watermark){
+        $dataSetup['plugins'] = array(
+            ['watermark'] => array(
+                    ['file'] => $watermark,
+                    ['xpos'] => $wmxpos,
+                    ['ypos'] => $wmxpos,
+                    ['xrepeat'] => $wmxrepeat,
+                    ['opacity'] => $wmopacity
+            )
+        );
+    }
 	$jsonDataSetup = str_replace('\\/', '/', json_encode($dataSetup));
 
 	//Output the <video> tag
 	$videojs = <<<_end_
 
 	<!-- Begin Video.js -->
-	<video id="{$id}" class="video-js vjs-default-skin {$class}" width="{$width}" height="{$height}"{$attributes}{$preload_attribute} data-setup='{$jsonDataSetup}'>
+	<video id="{$id}" class="video-js vjs-default-skin{$class}" width="{$width}" height="{$height}"{$attributes}{$preload_attribute} data-setup='{$jsonDataSetup}'>
 		{$video_source}{$track}
 	</video>
 	<!-- End Video.js -->
