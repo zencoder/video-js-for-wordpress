@@ -313,12 +313,12 @@ add_action('init', 'video_js_button');
 
 function register_video_js_button($buttons) {
 	array_push($buttons, "|", "videojs");
-	$options = get_option('videojs_options');
-	echo('<div style="display:none"><input type="hidden" id="videojs-autoplay-default" value="' . $options['videojs_autoplay'] . '"><input type="hidden" id="videojs-preload-default" value="' . $options['videojs_preload'] . '"></div>'); //the default values from the admin screen, to be used by our javascript
 	return $buttons;
 }
 
 function video_js_mce_plugin($plugin_array) {
+	$options = get_option('videojs_options');
+	echo('<div style="display:none"><input type="hidden" id="videojs-autoplay-default" value="' . $options['videojs_autoplay'] . '"><input type="hidden" id="videojs-preload-default" value="' . $options['videojs_preload'] . '"></div>'); //the default values from the admin screen, to be used by our javascript
 	$plugin_array['videojs'] = plugins_url( 'mce-button.js' , __FILE__ );
 	return $plugin_array;
 }
