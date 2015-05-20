@@ -45,7 +45,7 @@ function register_videojs(){
         wp_register_style( 'videojs-resolution', plugins_url( 'videojs/button-styles.css' , __FILE__ ) );
         wp_enqueue_style( 'videojs-resolution' );
     }
-    wp_register_script( 'videojs-watermark', plugins_url( 'videojs/videojs.watermarka.js' , __FILE__ ) );
+    wp_register_script( 'videojs-watermark', plugins_url( 'videojs/videojs.watermark.js' , __FILE__ ) );
     wp_register_style( 'videojs-watermark', plugins_url( 'videojs/videojs.watermark.css' , __FILE__ ) );
  	wp_enqueue_style( 'videojs-watermark' );
 }
