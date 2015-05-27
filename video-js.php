@@ -216,7 +216,7 @@ _end_;
 		$videojs = <<<_end_
 		
 		<!-- Begin Video.js Responsive Wrapper -->
-		<div style='{$maxwidth}'>
+		<div class='video-responsive-container' style='{$maxwidth}'>
 			<div class='video-wrapper' style='padding-bottom:{$ratio}%;'>
 				{$videojs}
 			</div>
