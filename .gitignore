@@ -3,3 +3,7 @@
 
 .brackets.json
 videojs/font/.DS_Store
+
+/vendor/
+
+*.lock
