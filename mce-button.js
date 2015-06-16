@@ -1,4 +1,4 @@
-(function() {
+(function(){
 	tinymce.create('tinymce.plugins.VideoJS', {
 		init: function(ed, url) {
 			ed.addButton('videojs', {
@@ -50,37 +50,42 @@
 		<table id="videoJStable" class="form-table">\
 			<tr>\
 				<th><label for="videojs-mp4">MP4 Source</label></th>\
-				<td><input type="text" name="videojs-mp4" id="videojs-mp4"><br>\
+				<td><input type="text" name="videojs-mp4" id="videojs-mp4"><br/>\
 				<small>The location of the h.264/MP4 source for the video.</small></td>\
 			</tr>\
 			<tr>\
 				<th><label for="videojs-webm">WebM Source</label></th>\
-				<td><input type="text" name="videojs-webm" id="videojs-webm"><br>\
+				<td><input type="text" name="videojs-webm" id="videojs-webm"><br/>\
 				<small>The location of the VP8/WebM source for the video.</small></td>\
 			</tr>\
 			<tr>\
 				<th><label for="videojs-ogg">OGG Source</label></th>\
-				<td><input type="text" name="videojs-ogg" id="videojs-ogg"><br>\
+				<td><input type="text" name="videojs-ogg" id="videojs-ogg"><br/>\
 				<small>The location of the Theora/Ogg source for the video.</small></td>\
 			</tr>\
 			<tr>\
 				<th><label for="videojs-youtube">YouTube Url</label></th>\
-				<td><input type="text" name="videojs-youtube" id="videojs-youtube"><br>\
+				<td><input type="text" name="videojs-youtube" id="videojs-youtube"><br/>\
 				<small>The location of the YouTube source for the video.</small></td>\
+			</tr>\
+            <tr>\
+				<th><label for="videojs-rtmp">RTMP Source</label></th>\
+				<td><input type="text" name="videojs-rtmp" id="videojs-rtmp"><br/>\
+				<small>The location of the RTMP source for the video.</small></td>\
 			</tr>\
 			<tr>\
 				<th><label for="videojs-poster">Poster Image</label></th>\
-				<td><input type="text" name="videojs-poster" id="videojs-poster"><br>\
+				<td><input type="text" name="videojs-poster" id="videojs-poster"><br/>\
 				<small>The location of the poster frame for the video.</small></td>\
 			</tr>\
 			<tr>\
 				<th><label for="videojs-width">Width</label></th>\
-				<td><input type="text" name="videojs-width" id="videojs-width"><br>\
+				<td><input type="text" name="videojs-width" id="videojs-width"><br/>\
 				<small>The width of the video.</small></td>\
 			</tr>\
 			<tr>\
 				<th><label for="videojs-height">Height</label></th>\
-				<td><input type="text" name="videojs-height" id="videojs-height"><br>\
+				<td><input type="text" name="videojs-height" id="videojs-height"><br/>\
 				<small>The height of the video.</small></td>\
 			</tr>\
 			<tr>\
@@ -96,18 +101,26 @@
 				<td><input id="videojs-loop" name="videojs-loop" type="checkbox" /></td>\
 			</tr>\
 			<tr>\
-				<th><label for="videojs-controls">Show Player Controls</label></th>\
+				<th><label for="videojs-controls">Show Player Controls</label></th/>\
 				<td><input id="videojs-controls" name="videojs-controls" type="checkbox" checked /></td>\
 			</tr>\
 			<tr>\
 				<th><label for="videojs-id">ID</label></th>\
-				<td><input type="text" name="videojs-id" id="videojs-id"><br>\
+				<td><input type="text" name="videojs-id" id="videojs-id"><br/>\
 				<small>Add a custom ID to your video player.</small></td>\
 			</tr>\
 			<tr>\
 				<th><label for="videojs-class">Class</label></th>\
-				<td><input type="text" name="videojs-class" id="videojs-class"><br>\
+				<td><input type="text" name="videojs-class" id="videojs-class"><br/>\
 				<small>Add a custom class to your player. Use full for floating the video player using \'alignleft\' or \'alignright\'.</small></td>\
+            <tr>\
+				<th><label for="videojs-watermark">Add Watermark</label></th>\
+				<td><input type="text" name="videojs-watermark" id="videojs-watermark"><br/>\
+				<small>Add a watermark to your player. Default location is top left corner @ 50% opacity.</small><br/>\
+                xpos=<input type="text" name="videojs-wmxpos" id="videojs-wmxpos"> ypos=<input type="text" name="videojs-wmypos" id="videojs-wmypos"> opacity=<input type="text" name="videojs-wmopacity" id="videojs-wmopacity"> xrepeat=<input type="text" name="videojs-wmxrepeat" id="videojs-wmxrepeat"<br/>\
+                          
+                          
+                          </td>\
 			</tr>\
 		</table>\
 		<p class="submit">\
@@ -127,11 +140,18 @@
 				'mp4'      : '',
 				'webm'     : '',
 				'ogg'      : '',
+                'youtube'  : '',
+                'rtmp'     : '',
 				'poster'   : '',
 				'width'    : '',
 				'height'   : '',
 				'id'       : '',
-				'class'    : ''
+				'class'    : '',
+                'watermark': '',
+                'wmxpos'   : '0',
+                'wmypos'   : '0',
+                'wmxrepeat': '0',
+                'wmopacity': '0.5'
 			};
 			
 			for(var index in options) {

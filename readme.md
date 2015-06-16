@@ -1,22 +1,22 @@
-=== Video.js - HTML5 Video Player for Wordpress ===
-Contributors: nosecreek, Steve Heffernan, schnere
-Donate link: http://ncrk.ca/videojs
-Tags: html5, video, player, javascript
-Requires at least: 2.7
-Tested up to: 3.9
-Stable tag: 4.5.0
-License: LGPLv3
-License URI: http://www.gnu.org/licenses/lgpl-3.0.html
+# Video.js - HTML5 Video Player for Wordpress  
+Contributors: nosecreek, Steve Heffernan, schnere, stopspazzing  
+Donate link: http://ncrk.ca/videojs  
+Tags: html5, video, player, javascript  
+Requires at least: 2.7  
+Tested up to: 4.2.2  
+Stable tag: 4.6.1  
+License: LGPLv3  
+License URI: http://www.gnu.org/licenses/lgpl-3.0.html  
 
 Self-hosted responsive HTML5 video for WordPress, built on the widely used Video.js HTML5 video player. Embed video in your post or page using HTML5.
 
-== Description ==
+## Description
 
 A video plugin for WordPress built on the Video.js HTML5 video player library. Allows you to embed video in your post or page using HTML5 with Flash fallback support for non-HTML5 browsers.
 
 View [videojs.com](http://videojs.com) for additional information.
 
-== Installation ==
+## Installation
 
 This section describes how to install the plugin and get it working.
 
@@ -46,6 +46,11 @@ The location of the VP8/WebM source for the video.
 The location of the YouTube source for the video.
 
     [videojs youtube="http://www.youtube.com/watch?v=DJU6ppZAaec"]
+
+### rtmp
+The location of the RTMP source for the video.
+
+    [videojs rtmp="rtmp://cp67126.edgefcs.net/ondemand/&mp4:mediapm/ovp/content/test/video/spacealonehd_sounas_640_300.mp4"]
 
 ### poster
 The location of the poster frame for the video.
@@ -107,6 +112,10 @@ Text Tracks are a function of HTML5 video for providing time triggered text to t
 
     [videojs mp4="http://video-js.zencoder.com/oceans-clip.mp4" ogg="http://video-js.zencoder.com/oceans-clip.ogg" webm="http://video-js.zencoder.com/oceans-clip.webm" poster="http://video-js.zencoder.com/oceans-clip.png" preload="auto" autoplay="true" width="640" height="264" id="movie-id" class="alignleft" controls="false" muted="true"][track kind="captions" src="http://example.com/path/to/captions.vtt" srclang="en" label="English" default="true"][/videojs]
     
+### Video Resolution Selector
+Allows you to use multiple video resolution sources, currently for mp4's only tho should work for anything. The first res will be the default. Make sure each mp4# matches res#
+
+    [videojs mp41="http://video-js.zencoder.com/oceans-clip360p.mp4" mp42="http://video-js.zencoder.com/oceans-clip720p.mp4" mp43="http://video-js.zencoder.com/oceans-clip1080p.mp4" res1="360" res2="720" res3="1080"]
 
 ##Video.js Settings Screen
 --------------------------
@@ -118,6 +127,23 @@ Uncheck the *Use the [video] shortcode?* option __only__ if you are using WordPr
 
 
 == Changelog ==
+
+= 4.6.2 =
+
+* Moving youtube.js to head fixes several issues with youtube player
+* Added watermark plugin with shortcode
+
+= 4.6.1 =
+
+* Simplified video output code and cleaned up unnecessary conditions
+* Fixed Youtube bug in MCE that would prevent youtube url's from being added to the generated shorcode
+* Added RTMP video source option in MCE and shortcode
+
+= 4.6.0 =
+
+* Updated to use Video.js 4.12.6
+* Added Video Resolution Selector plugin
+* Added option to force mobile custom controls
 
 = 4.5.0 =
 
